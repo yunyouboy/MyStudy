@@ -1,0 +1,2 @@
+include ':app', ':SerializableDemo', ':jsonlib'
+include ':lib'
