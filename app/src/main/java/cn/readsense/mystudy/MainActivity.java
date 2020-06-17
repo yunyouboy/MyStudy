@@ -1,6 +1,7 @@
 package cn.readsense.mystudy;
 
 import android.content.Intent;
+import android.icu.util.Output;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,7 +14,17 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.PriorityQueue;
 import java.util.Stack;
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
         stack.push(null);
         stack.push(null);
         stack.pop();
+
+        try {
+            RandomAccessFile randomAccessFile = new RandomAccessFile("","");
+            randomAccessFile.getChannel();
+            File file = new File("");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -1,2 +1,6 @@
-include ':app', ':SerializableDemo', ':jsonlib'
+include ':app'
+include ':SerializableDemo'
+include ':jsonlib'
+include ':rxjavaapp'
 include ':lib'
+include ':ReinforceProject'
