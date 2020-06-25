@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hui="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,20 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登录"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_main_text_size" />
-
-        <TextView
-            android:id="@+id/user_register_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
             android:text="注册"
             android:textColor="@color/white"
-            android:textSize="14dp" />
+            android:textSize="@dimen/title_main_text_size" />
 
     </RelativeLayout>
 
@@ -43,11 +33,6 @@
         android:background="@drawable/corner_login_bg"
         android:gravity="center_vertical"
         android:padding="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/login_user_name_icon" />
 
         <EditText
             android:id="@+id/user_phone_et"
@@ -64,17 +49,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <!--<EditText
+            android:id="@+id/user_code_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/corner_login_bg"
+            android:hint="验证码"
+            android:padding="20dp"
+            android:textSize="12dp" />-->
+
+        <!--<com.xiangxue.googleproject.ui.view.VerificationCodeButton
+            android:id="@+id/send_code_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/corners_login_nomral"
+            android:onClick="@{()->click.sendCode()}"
+            android:padding="18dp"
+            android:text="发送验证码"
+            android:textColor="@color/white"
+            hui:timing_background="@drawable/corners_login_begin_nomral"
+            hui:timing_textColor="@color/white" />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/corner_login_bg"
         android:gravity="center_vertical"
         android:padding="10dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/login_user_password_icon" />
 
         <EditText
             android:id="@+id/user_password_et"
@@ -96,32 +109,22 @@
 
 
     <Button
-        android:id="@+id/user_login_bt"
+        android:id="@+id/user_register_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:background="@drawable/corners_login_bg"
-        android:text="登 录"
+        android:text="注 册"
         android:textColor="@color/white" />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/user_agreement_tv"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp">
+        android:layout_marginLeft="15dp"
+        android:drawableLeft="@drawable/consent_icon"
+        android:drawablePadding="5dp"
+        android:text="建议：把注册的信息牢牢记住，以免忘记!" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="忘记密码？"
-            android:textColor="@color/main_color" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingRight="15dp"
-            android:text="手机快捷登录"
-            android:textColor="@color/main_color" />
-    </RelativeLayout>
 </LinearLayout>

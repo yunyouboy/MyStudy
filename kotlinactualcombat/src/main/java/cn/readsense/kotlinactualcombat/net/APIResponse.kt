@@ -2,7 +2,7 @@ package cn.readsense.kotlinactualcombat.net
 
 import android.content.Context
 import cn.readsense.kotlinactualcombat.LoadingDialog
-import cn.readsense.kotlinactualcombat.entity.LoginResponseWrapper
+import cn.readsense.kotlinactualcombat.entity.RegisterLoginResponseWrapper
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable
  *Description：
  **/
 
-abstract class APIResponse<T>(val context: Context) : Observer<LoginResponseWrapper<T>> {
+abstract class APIResponse<T>(val context: Context) : Observer<RegisterLoginResponseWrapper<T>> {
 
     private var isShow: Boolean = true
 
@@ -27,7 +27,7 @@ abstract class APIResponse<T>(val context: Context) : Observer<LoginResponseWrap
         }
     }
 
-    override fun onNext(t: LoginResponseWrapper<T>) {
+    override fun onNext(t: RegisterLoginResponseWrapper<T>) {
         if (null == t.data) {
             failure(t.errorMsg)
         } else {

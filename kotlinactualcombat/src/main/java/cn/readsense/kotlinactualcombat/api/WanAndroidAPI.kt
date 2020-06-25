@@ -1,7 +1,7 @@
 package cn.readsense.kotlinactualcombat.api
 
-import cn.readsense.kotlinactualcombat.entity.LoginResponse
-import cn.readsense.kotlinactualcombat.entity.LoginResponseWrapper
+import cn.readsense.kotlinactualcombat.entity.RegisterLoginResponse
+import cn.readsense.kotlinactualcombat.entity.RegisterLoginResponseWrapper
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -23,9 +23,15 @@ interface WanAndroidAPI {
     @FormUrlEncoded
     fun loginAction(@Field("username") username: String,
                     @Field("password") password: String
-    ): Observable<LoginResponseWrapper<LoginResponse>>
+    ): Observable<RegisterLoginResponseWrapper<RegisterLoginResponse>>
 
     /**
      * 注册API
      */
+    @POST("/user/register")
+    @FormUrlEncoded
+    fun registerAction(@Field("username") username: String,
+                       @Field("password") password: String,
+                       @Field("repassword") rePassword: String
+    ): Observable<RegisterLoginResponseWrapper<RegisterLoginResponse>>
 }
