@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import cn.readsense.kotlinactualcombat.MainActivity
 import cn.readsense.kotlinactualcombat.R
 import cn.readsense.kotlinactualcombat.base.BaseActivity
 import cn.readsense.kotlinactualcombat.entity.RegisterLoginResponse
@@ -45,7 +46,8 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginView {
         // 成功  data UI
         Log.e(Flag.TAG, "success:$successResponse")
         Toast.makeText(this@LoginActivity, "登录成功😀", Toast.LENGTH_SHORT).show()
-
+        val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onFailure(errorMessage: String?) {
