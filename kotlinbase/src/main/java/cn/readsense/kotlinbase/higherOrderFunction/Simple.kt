@@ -1,4 +1,4 @@
-package com.xiangxue.lib.core
+package cn.readsense.kotlinbase.higherOrderFunction
 
 fun main() {
 

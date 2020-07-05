@@ -1,9 +1,6 @@
 // TODO 最后看
 
-package com.xiangxue.lib.core
-
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+package cn.readsense.kotlinbase.higherOrderFunction
 
 val name: String = "Derry"
 val age: Int = 0
@@ -14,7 +11,11 @@ fun common() {
 
 fun main() {
 
-    name.let {  }
+    name.let {
+        //it.length
+        println(it.length)
+        it.hashCode()
+    }
 
     // r == 外面那个R
     val r = common().myRun {
@@ -31,17 +32,18 @@ fun main() {
     }
 
     name.myLet {
+        val aaa = length
         length
-        length
+        println("name length:$length")
     }
 
     onRun(true) {
         println("执行了..")
     }
 
-    onRun(true, {
+    onRun(false) {
         println("执行了222")
-    })
+    }
 
     val runValue = Runnable {
         println("我就是Runnabler任务")
@@ -55,8 +57,8 @@ fun main() {
 fun <T, R> T.myRun(m: () -> R) : R  = m()  // 调用高阶函数
 
 // 普通函数
-fun <T, R> myWith(input:T, mm: T.() -> R): R {
-    return input.mm() // this
+fun <T, R> myWith(input:T, mm: T.(Int) -> R): R {
+    return input.mm(1) // this
 }
 
 fun <T, R> T.myLet(mm: T.(T) -> R): R {

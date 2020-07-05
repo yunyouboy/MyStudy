@@ -1,6 +1,6 @@
 // TODO  第3看这个
 
-package com.xiangxue.lib.core
+package cn.readsense.kotlinbase.higherOrderFunction
 
 val nameS: String = "Derry"
 val ageS: Int = 0

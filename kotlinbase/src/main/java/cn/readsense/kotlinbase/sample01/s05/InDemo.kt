@@ -20,7 +20,7 @@ fun main() {
 
     // 用区间做判断
     val value = 88
-    if (value in 1..100) {
+        if (value in 1..100) {
         // println("包了 1 到 100")
     }
 

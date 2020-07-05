@@ -1,6 +1,6 @@
 // TODO 2
 
-package com.xiangxue.lib.core
+package cn.readsense.kotlinbase.higherOrderFunction
 
 fun main() {
     // 用户
