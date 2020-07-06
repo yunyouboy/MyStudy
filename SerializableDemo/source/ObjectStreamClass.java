@@ -187,7 +187,7 @@ public class ObjectStreamClass implements Serializable {
     private int numObjFields;
     /** reflector for setting/getting serializable field values */
     private FieldReflector fieldRefl;
-    /** data layout of serialized objects described by this class desc */
+    /** data activity_viewPage of serialized objects described by this class desc */
     private volatile ClassDataSlot[] dataLayout;
 
     /** serialization-appropriate constructor, or null if none */
@@ -1298,7 +1298,7 @@ public class ObjectStreamClass implements Serializable {
     }
 
     /**
-     * Returns array of ClassDataSlot instances representing the data layout
+     * Returns array of ClassDataSlot instances representing the data activity_viewPage
      * (including superclass data) for serialized objects described by this
      * class descriptor.  ClassDataSlots are ordered by inheritance with those
      * containing "higher" superclasses appearing first.  The final

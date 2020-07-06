@@ -11,10 +11,20 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_to_viewpager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:clickable="true"
             android:text="搜索历史"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="搜索发现"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -92,14 +102,6 @@
                 android:background="@drawable/shape_button_circular"
                 android:text="图书勋章日" />
         </com.example.customizeview.view.FlowLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="搜索发现"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
 
         <com.example.customizeview.view.FlowLayout
             android:layout_width="match_parent"
