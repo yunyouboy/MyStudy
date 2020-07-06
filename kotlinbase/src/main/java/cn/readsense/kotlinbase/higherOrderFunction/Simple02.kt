@@ -30,6 +30,11 @@ fun main() {
     }
 
     println("name length:$nameLength")
+    name.let {
+        //it.length
+        println(it.length)
+        it.hashCode()
+    }
 
     // r == 外面那个R
     val r = common().myRun {
@@ -45,6 +50,7 @@ fun main() {
         length
     }
 
+
     name.myLet {//通过it调用
         it.length
         it.length
@@ -52,15 +58,21 @@ fun main() {
 
     name.myLet2 { //通过this调用
         length
-    }
 
+        name.myLet {
+            val aaa = length
+            length
+            println("name length:$length")
+
+        }
+    }
     onRun(true) {
         println("执行了..")
     }
 
-    onRun(true, {
+    onRun(false) {
         println("执行了222")
-    })
+    }
 
     val runValue = Runnable {
         println("我就是Runnabler任务")
@@ -74,8 +86,14 @@ fun main() {
 fun <T, R> T.myRun(m: () -> R): R = m()  // 调用高阶函数
 
 // 普通函数
-fun <T, R> myWith(input: T, mm: T.() -> R): R {
+
+/*fun <T, R> myWith(input: T, mm: T.() -> R): R {
     return input.mm() // this
+}*/
+
+fun <T, R> myWith(input: T, mm: T.(Int) -> R): R {
+    return input.mm(1) // this
+
 }
 
 fun <T, R> T.myLet(mm: (T) -> R): R {
