@@ -1,4 +1,4 @@
-package com.xiangxue.lib.core
+package cn.readsense.kotlinbase.higherOrderFunction
 
 fun main() {
 
@@ -24,20 +24,20 @@ fun main() {
     // = {具体详情}
 
     // TODO 定义没有问题，调用OK ，因为有实现了
-    var m06 : (Int, Int) -> Int = {number1, number2 -> number1 + number2}
+    var m06: (Int, Int) -> Int = { number1, number2 -> number1 + number2 }
     println("m06:${m06(9, 9)}")
 
-    var m07 = { number1: Int , number2: Int -> number1.toDouble() + number2.toDouble()}
+    var m07 = { number1: Int, number2: Int -> number1.toDouble() + number2.toDouble() }
     println("m07:${m07(100, 100)}")
 
-    var m08 : (String, String) -> Unit = {aString, bString -> println("a:$aString,  b:$bString")}
+    var m08: (String, String) -> Unit = { aString, bString -> println("a:$aString,  b:$bString") }
     m08("李元霸", "王五")
 
-    var m09 : (String) -> String = {str -> str}
+    var m09: (String) -> String = { str -> str }
     println("m09:${m09("降龙十八掌")}")
 
-    var m10 : (Int) -> Unit = {
-        when(it) {
+    var m10: (Int) -> Unit = {
+        when (it) {
             1 -> println("你是一")
             in 20..30 -> println("你是 二十 到 三十")
             else -> println("其他的数字")
@@ -45,24 +45,25 @@ fun main() {
     }
     m10(29)
 
-    var m11 : (Int, Int, Int) -> Unit = { n1, n2, n3 ->
+    var m11: (Int, Int, Int) -> Unit = { n1, n2, n3 ->
         println("n1:$n1, n2:$n2, n3:$n3")
     }
-    m11(29,22,33)
+    m11(29, 22, 33)
 
     var m12 = { println("我就是m12函数，我就是我") }
     m12()
 
-    val m13 = {sex: Char -> if (sex == 'M') "代表是男的" else "代表是女的"}
+    val m13 = { sex: Char -> if (sex == 'M') "代表是男的" else "代表是女的" }
     println("m13:${m13('M')}")
 
     // 覆盖操作
-    var m14 = {number: Int -> println("我就是m14  我的值: $number")}
-    m14 = {println("覆盖  我的值: $it")}
+    var m14 = { number: Int -> println("我就是m14  我的值: $number") }
+    m14 = { println("覆盖  我的值: $it") }
     m14(99)
 
     // 需求：我想打印， 并且，我还想返回值，就是 我什么都想要
-    var m15 = { number: Int -> println("我想打印: $number")
+    var m15 = { number: Int ->
+        println("我想打印: $number")
         number + 1000000
     }
     println("m15:${m15(88)}")
@@ -76,14 +77,28 @@ fun main() {
 
 
 
-
+    myLogiEngin("qyg", "123456")
 
     // TODO 先看这个  1
 
     // TODO  ------------------- 高阶登录需求 --------------------
-    loginEngine("Derry2", "123456")
+    //loginEngine("Derry2", "123456")
 
     run {}
+}
+
+fun myLogiEngin(username: String, password: String) {
+    myLoginService(username, password) { name, pwd ->
+        if (name == "qyg" && pwd == "123456") {
+            println("恭喜${name}登录成功")
+        } else {
+            println("登录失败，请检查用户名 或 密码....!!!")
+        }
+    }
+}
+
+private fun myLoginService(username: String, password: String, requestLogin: (String, String) -> Unit) {
+    requestLogin(username, password)
 }
 
 /*
@@ -94,7 +109,7 @@ fun method(n1: Int = 9 , n2: Int = 100) {
 
 // --------------
 // 对外暴漏
-fun loginEngine(userName: String, userPwd: String) : Unit {
+fun loginEngine(userName: String, userPwd: String): Unit {
 
     // 使用高阶  {}
     loginService(userName, userPwd) { name, pwd ->
@@ -109,6 +124,6 @@ fun loginEngine(userName: String, userPwd: String) : Unit {
 // 标准  String String --> Unit
 typealias RequestLogin = (String, String) -> Unit
 
-private fun loginService(userName: String, userPwd: String, requestLogin: RequestLogin) : Unit {
+private fun loginService(userName: String, userPwd: String, requestLogin: RequestLogin): Unit {
     requestLogin(userName, userPwd)
 }

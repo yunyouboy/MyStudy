@@ -34,4 +34,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2" // 协程 支持包
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'// AndroidX 扩展包
+
+    // implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-java:1.3.2'// Java 扩展包
+
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
 }

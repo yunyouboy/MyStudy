@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:derry="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,13 +14,11 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            android:visibility="visible" />
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_baseline_cloud_download_24" />
 
         <!-- 自定义View -->
         <!--<com.xiangxue.kotlinproject.view.ProportionImageView
@@ -33,12 +28,110 @@
             derry:heightProportion="1"
             derry:widthProportion="2" />-->
         <ImageView
-            android:id="@+id/iv_top"
+            android:id="@+id/iv_bottom"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/ic_baseline_cloud_download_24"
-            />
+            android:src="@drawable/ic_baseline_cloud_download_24" />
 
+
+        <LinearLayout
+            style="@style/width_match_height_wrap"
+            android:layout_marginTop="1dp">
+
+            <LinearLayout
+                android:id="@+id/equipment_view"
+                style="@style/height_wrap_width_weight"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="1dp"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/equipment_icon" />
+
+                <TextView
+                    style="@style/wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="设备"
+                    android:textColor="@color/title_black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    style="@style/width_match_height_wrap"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="闲置设备租\n赁，买卖"
+                    android:textColor="#B4B4B4"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/league_view"
+                style="@style/height_wrap_width_weight"
+                android:layout_marginRight="1dp"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/league_icon" />
+
+                <TextView
+                    style="@style/wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="加盟"
+                    android:textColor="@color/title_black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    style="@style/width_match_height_wrap"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="个人加盟,企业聘证,\n联营企业"
+                    android:textColor="#B4B4B4"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cost_comm"
+                style="@style/height_wrap_width_weight"
+                android:layout_alignParentRight="true"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/cost_exchange" />
+
+                <TextView
+                    style="@style/wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="成本交流"
+                    android:textColor="@color/title_black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    style="@style/width_match_height_wrap"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="工程成本讨\n论"
+                    android:textColor="#B4B4B4"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,107 +237,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            style="@style/width_match_height_wrap"
-            android:layout_marginTop="1dp">
-
-            <LinearLayout
-                android:id="@+id/equipment_view"
-                style="@style/height_wrap_width_weight"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="1dp"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    style="@style/wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/equipment_icon" />
-
-                <TextView
-                    style="@style/wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="设备"
-                    android:textColor="@color/title_black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    style="@style/width_match_height_wrap"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="闲置设备租\n赁，买卖"
-                    android:textColor="#B4B4B4"
-                    android:textSize="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/league_view"
-                style="@style/height_wrap_width_weight"
-                android:layout_marginRight="1dp"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    style="@style/wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/league_icon" />
-
-                <TextView
-                    style="@style/wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="加盟"
-                    android:textColor="@color/title_black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    style="@style/width_match_height_wrap"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:text="个人加盟,企业聘证,\n联营企业"
-                    android:textColor="#B4B4B4"
-                    android:textSize="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/cost_comm"
-                style="@style/height_wrap_width_weight"
-                android:layout_alignParentRight="true"
-                android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    style="@style/wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/cost_exchange" />
-
-                <TextView
-                    style="@style/wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="成本交流"
-                    android:textColor="@color/title_black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    style="@style/width_match_height_wrap"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:lines="2"
-                    android:text="工程成本讨\n论"
-                    android:textColor="#B4B4B4"
-                    android:textSize="10dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View style="@style/gray_line" />
-
         <TextView
             style="@style/width_match_height_wrap"
             android:layout_gravity="center_vertical"
@@ -257,6 +249,14 @@
             android:textColor="@color/title_black"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            android:textSize="10sp"
+            android:visibility="visible" />
+
         <!-- 自定义View -->
         <!--<com.xiangxue.kotlinproject.view.ProportionImageView
             android:id="@+id/iv_bottom"
@@ -264,13 +264,6 @@
             android:layout_height="0dp"
             derry:heightProportion="1"
             derry:widthProportion="2" />-->
-        <ImageView
-            android:id="@+id/iv_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_baseline_cloud_download_24"
-            />
-
         <TextView
             style="@style/width_match_height_wrap"
             android:layout_gravity="center_vertical"
@@ -283,11 +276,13 @@
             android:textColor="@color/title_black"
             android:textSize="14sp" />
 
+        <View style="@style/gray_line" />
+
         <!-- 自定义View -->
         <!--<ListView-->
         <!--<com.xiangxue.kotlinproject.view.ImplantListView-->
-        <ListView
-            android:id="@+id/industry_information_lv"
+        <cn.readsense.kotlinactualcombat.view.CustomerListview
+            android:id="@+id/lv_home"
             style="@style/width_match_height_wrap"
             android:layout_marginTop="1dp"
             android:background="@color/white"

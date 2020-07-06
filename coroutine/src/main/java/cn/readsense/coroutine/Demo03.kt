@@ -1,4 +1,4 @@
-package com.xiangxue.xc
+package cn.readsense.coroutine
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancelAndJoin

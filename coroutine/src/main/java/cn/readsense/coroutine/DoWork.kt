@@ -1,4 +1,4 @@
-package com.xiangxue.xc
+package cn.readsense.coroutine
 
 import android.os.Handler
 import android.os.Looper
@@ -24,7 +24,7 @@ fun displayMethod(textView: TextView) {
     }
 
     // 异步线程
-    object: Thread() {
+    object : Thread() {
         override fun run() {
             super.run()
 
@@ -32,12 +32,11 @@ fun displayMethod(textView: TextView) {
 
             // 不考虑异常的情况
             val result = mOkHttpClient.newCall(mRequest).execute().body()?.string()
-            val msg =  han.obtainMessage()
+            val msg = han.obtainMessage()
             msg.obj = result
             han.sendMessage(msg)
         }
     }.start()
-
 
 
 }

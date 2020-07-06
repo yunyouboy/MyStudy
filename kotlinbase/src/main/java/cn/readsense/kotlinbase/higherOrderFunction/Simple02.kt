@@ -1,9 +1,6 @@
 // TODO 最后看
 
-package com.xiangxue.lib.core
-
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+package cn.readsense.kotlinbase.higherOrderFunction
 
 val name: String = "Derry"
 val age: Int = 0
@@ -13,8 +10,26 @@ fun common() {
 }
 
 fun main() {
+    name.run {
 
-    name.let {  }
+    }
+    var sss = with("s:String,") {
+        this.length
+    }
+
+    var nameLength = name.let {
+        name.length
+    }
+
+    var s = name.apply {
+        name.length
+    }
+
+    var ss = name.also {
+        it.length
+    }
+
+    println("name length:$nameLength")
 
     // r == 外面那个R
     val r = common().myRun {
@@ -30,8 +45,12 @@ fun main() {
         length
     }
 
-    name.myLet {
-        length
+    name.myLet {//通过it调用
+        it.length
+        it.length
+    }
+
+    name.myLet2 { //通过this调用
         length
     }
 
@@ -52,20 +71,26 @@ fun main() {
 
 // TODO m: T.() -> R
 // T.() == 给T来一个匿名函数
-fun <T, R> T.myRun(m: () -> R) : R  = m()  // 调用高阶函数
+fun <T, R> T.myRun(m: () -> R): R = m()  // 调用高阶函数
 
 // 普通函数
-fun <T, R> myWith(input:T, mm: T.() -> R): R {
+fun <T, R> myWith(input: T, mm: T.() -> R): R {
     return input.mm() // this
 }
 
-fun <T, R> T.myLet(mm: T.(T) -> R): R {
+fun <T, R> T.myLet(mm: (T) -> R): R {
+    // T == this   () -> R
+    // mm(this) == this     vs    T.(T)  -> R
+    return mm(this)
+}
+
+fun <T, R> T.myLet2(mm: T.(T) -> R): R {
     // T == this   () -> R
     // mm(this) == this     vs    T.(T)  -> R
     return mm(this)
 }
 
 // 控制器 如果你是true，我就执行你，否则不执行
-inline fun onRun(isRun: Boolean,        mm: () -> Unit) {
+inline fun onRun(isRun: Boolean, mm: () -> Unit) {
     if (isRun) mm()
 }

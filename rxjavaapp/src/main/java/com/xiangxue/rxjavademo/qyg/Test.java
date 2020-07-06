@@ -2,11 +2,15 @@ package com.xiangxue.rxjavademo.qyg;
 
 import android.util.Log;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -20,6 +24,8 @@ import io.reactivex.schedulers.Schedulers;
 public class Test {
     private static final String TAG = Test.class.getSimpleName();
     private Disposable disposable = null;
+
+
 
     private void test() {
 
