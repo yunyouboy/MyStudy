@@ -1,3 +1,6 @@
+include ':skinskin'
+include ':skinapp'
+include ':skinlib'
 include ':customizeview'
 include ':kotlinactualcombat'
 include 'coroutine'

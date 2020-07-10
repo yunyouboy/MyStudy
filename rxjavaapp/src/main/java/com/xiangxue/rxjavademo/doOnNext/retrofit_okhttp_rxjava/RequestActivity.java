@@ -2,6 +2,7 @@ package com.xiangxue.rxjavademo.doOnNext.retrofit_okhttp_rxjava;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

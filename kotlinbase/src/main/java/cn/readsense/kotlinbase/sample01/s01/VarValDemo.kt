@@ -16,7 +16,7 @@ fun main() {
 
     var info1 = "AAAA" // 类型推到
     var info2 = 'A' // 类型推到  Char
-    var info3:Int = 99 // 类型推到  Int
+    var info3: Int = 99 // 类型推到  Int
 
     // 不可以修改的
     val age: Int = 99
@@ -26,13 +26,16 @@ fun main() {
     // 静态语言 编译期 就决定了 String类型
     var info4 = "LISI"  // info4==String类型
     // info4 = 88   // js 动态解释语言
+
+    var sss = 3 % 1
+    println("3 % 1= $sss")
 }
 
 class Test {
 
     // 可以改，可以读  get  set
-    var info1 : String = "A"
+    var info1: String = "A"
 
     // 只能读， 只有 get
-    val info2 : String = "B"
+    val info2: String = "B"
 }
