@@ -90,16 +90,9 @@ class MyNestedScrollView @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val layoutParams = contentView.layoutParams
-        layoutParams.height = measuredHeight
-        contentView.layoutParams = layoutParams
-    }
-
-    override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
-        if (dy > 0 && scrollY < topView.measuredHeight) {
-            scrollBy(0, dy)
-            consumed[1] = dy
-        }
+        val lp = contentView.layoutParams
+        lp.height = measuredHeight
+        contentView.layoutParams = lp
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {

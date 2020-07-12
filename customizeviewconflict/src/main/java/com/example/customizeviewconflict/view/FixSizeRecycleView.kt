@@ -2,6 +2,7 @@ package com.example.customizeviewconflict.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,5 +17,9 @@ class FixSizeRecycleView @JvmOverloads constructor(context: Context, attrs: Attr
         adapter = RecyclerAdapter(arrayListOf<TitleBean>(TitleBean("qyg1"), TitleBean("qyg2"), TitleBean("qyg3"), TitleBean("qyg4"))) {
             Toast.makeText(context, "FixSizeRecycleView click on position $it", Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onTouchEvent(e: MotionEvent?): Boolean {
+        return false
     }
 }
