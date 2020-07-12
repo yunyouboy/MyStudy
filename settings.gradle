@@ -1,3 +1,5 @@
+include ':customizevielib'
+include ':customizeviewconflict'
 include ':skinskin'
 include ':skinapp'
 include ':skinlib'
