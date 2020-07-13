@@ -62,6 +62,7 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
+        //System.out.println("3.14: " + (int)3.14 + ", 3.89: "+ (int)3.89);//舍弃小数位
         PrintArray.print(PrintArray.SRC);
         System.out.println("============================================");
         int[] dest = QuickSort.sort(PrintArray.SRC,0,PrintArray.SRC.length-1);
