@@ -16,8 +16,8 @@ import com.google.android.material.tabs.TabLayout
 class MyTabLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : TabLayout(context, attrs, defStyleAttr), SkinViewSupport {
 
 
-    var tabIndicatorColorResId: Int
-    var tabTextColorResId: Int
+    private var tabIndicatorColorResId: Int
+    private var tabTextColorResId: Int
 
     override fun applySkin() {
         if (tabIndicatorColorResId != 0) {

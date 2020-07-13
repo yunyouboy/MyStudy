@@ -23,18 +23,18 @@
         android:background="@drawable/toolbar" />
 
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--测试换肤==> viewPager 与 fragment-->
     <cn.readsense.skinapp.widget.MyTabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:tabIndicatorColor="@color/tabSelectedTextColor"
         app:tabTextColor="@color/tab_selector" />
-
-    <!--测试换肤==> viewPager 与 fragment-->
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 
 </LinearLayout>
