@@ -11,11 +11,12 @@ fun main() {
     }
 
 
-
     // 第二种形式  value=0
     // 0 + 200 = 200
     // 1 + 200 = 201
-    val numbers2 = Array(10,  {value: Int -> (value + 200) })
+    val numbers2 = Array(10) {
+        it + 200
+    }
     for (value in numbers2) {
         println(value)
     }

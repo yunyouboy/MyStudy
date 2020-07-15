@@ -11,14 +11,13 @@ fun main() {
 /**
  * 快排
  */
-fun sort(array: IntArray, start: Int, end: Int): IntArray? {
+private fun sort(array: IntArray, start: Int, end: Int) {
     if (array.isEmpty() || start < 0 || end >= array.size || start > end) {
-        return null
+        return
     }
     var zoneIndex = partition(array, start, end)
     if (zoneIndex > start) sort(array, start, zoneIndex - 1)
     if (zoneIndex < end) sort(array, zoneIndex + 1, end)
-    return array
 }
 
 /**
@@ -37,7 +36,7 @@ private fun partition(array: IntArray, start: Int, end: Int): Int {
             }
         }
     }
-    return pivot
+    return zoneIndex
 }
 
 
