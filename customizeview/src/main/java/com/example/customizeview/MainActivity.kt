@@ -14,5 +14,10 @@ class MainActivity : AppCompatActivity() {
             val intent: Intent = Intent(this@MainActivity, ViewpagerDemoActivity::class.java)
             startActivity(intent)
         }
+
+        tv_to_center_text.setOnClickListener {
+            val intent = Intent(this@MainActivity, CenterTextActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

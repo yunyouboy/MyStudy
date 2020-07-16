@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewpagerDemoActivity" />
+        <activity android:name=".CenterTextActivity" />
     </application>
 
 </manifest>
