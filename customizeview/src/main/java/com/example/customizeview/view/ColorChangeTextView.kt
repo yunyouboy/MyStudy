@@ -45,14 +45,14 @@ class ColorChangeTextView @JvmOverloads constructor(context: Context, attrs: Att
             field = value
             invalidate()
         }
-    private var mProgress: Float = 0f
+    var mProgress: Float = 0f
         set(value) {
             field = value
             invalidate()
         }
 
     @Directions
-    private var mDirection: Int = direction_left
+    var mDirection: Int = direction_left
 
     private var mTextBound = Rect()
     private var mTextWidth = 0
