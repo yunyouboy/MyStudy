@@ -19,5 +19,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, CenterTextActivity::class.java)
             startActivity(intent)
         }
+
+        tv_to_fish.setOnClickListener {
+            val intent: Intent = Intent(this@MainActivity, FishActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
