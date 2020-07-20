@@ -1,13 +1,6 @@
 package cn.readsense.listalgorithmskt
 
-/**
- *Author:qyg
- *DATE:2020/7/16 18:33
- *Description：
- **/
-
 fun main() {
-
     var header: ListNode? = ListNode(0)
     header?.next = ListNode(1)
     header?.next?.next = ListNode(2)
