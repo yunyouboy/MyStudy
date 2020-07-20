@@ -1,5 +1,6 @@
 package cn.readsense.lurcache
 
+
 /**
  *Author:qyg
  *DATE:2020/7/17 17:30
@@ -7,7 +8,41 @@ package cn.readsense.lurcache
  **/
 
 fun main() {
+    val lru = LruCache<Int, String>(3)
 
+    lru[1] = "a"// 1:a
+
+    println(lru.toString())
+    lru[2] = "b"// 2:b 1:a
+
+    println(lru.toString())
+    lru[3] = "c" // 3:c 2:b 1:a
+
+    println(lru.toString())
+    lru[4] = "d" //4:d 3:c 2:b
+
+    println(lru.toString())
+    lru[1] = "aa" // 1:aa 4:d 3:c
+
+    println(lru.toString())
+    lru[2] = "bb" // 2:bb 1:aa 4:d
+
+    println(lru.toString())
+    lru[5] = "e" // 5:e 2:bb 1:aa
+
+    println(lru.toString())
+    lru[1] // 1:aa 5:e 2:bb
+
+    println(lru.toString())
+    lru.remove(11) // 1:aa 5:e 2:bb
+
+    println(lru.toString())
+    lru.remove(1) //5:e 2:bb
+
+    println(lru.toString())
+    lru[1] = "aaa" //1:aaa 5:e 2:bb
+
+    println(lru.toString())
 }
 
 
@@ -26,19 +61,22 @@ class LruCache<K, V> {
         caches = HashMap<K, CacheNode<K, V>>(size)
     }
 
-    private fun put(k: K, v: V) {
+    operator fun set(k: K, v: V) {
         var node = caches[k]
-        node ?: {//缓存中没有该key
+        node ?: run {//缓存中没有该key
             if (caches.size >= cacheSize) {//缓存容量已经达到最大值了，不能装了
                 caches.remove(last?.key)//删除HashMap中的Node
                 removeLast()//删除双向链表中的尾结点Node
             }
+            node = CacheNode()
+            node!!.key = k
         }
-        node = CacheNode()
-        node.key = k
+        node!!.value = v
+        moveToFirst(node!!)
+        caches[k] = node!!
     }
 
-    private fun get(k: K): V? {
+    operator fun get(k: K): V? {
         val node = caches[k] ?: return null
         moveToFirst(node)
         return node.value
@@ -105,6 +143,18 @@ class LruCache<K, V> {
         first!!.pre = node
         first = node
         first!!.pre = null
+    }
+
+    override fun toString(): String {
+        var sb = StringBuilder()
+        var node: CacheNode<K, V>? = first
+        while (node != null) {
+            sb.append("${node.key} ")
+            sb.append("${node.value} ")
+            sb.append(", ")
+            node = node.next
+        }
+        return sb.toString()
     }
 
     inner class CacheNode<K, V> {
