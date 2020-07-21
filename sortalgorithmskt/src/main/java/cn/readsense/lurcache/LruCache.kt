@@ -12,53 +12,57 @@ fun main() {
 
     lru[1] = "a"// 1:a
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[2] = "b"// 2:b 1:a
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[3] = "c" // 3:c 2:b 1:a
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[4] = "d" //4:d 3:c 2:b
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[1] = "aa" // 1:aa 4:d 3:c
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[2] = "bb" // 2:bb 1:aa 4:d
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[5] = "e" // 5:e 2:bb 1:aa
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[1] // 1:aa 5:e 2:bb
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru.remove(11) // 1:aa 5:e 2:bb
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru.remove(1) //5:e 2:bb
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
     lru[1] = "aaa" //1:aaa 5:e 2:bb
 
-    println(lru.toString())
+    println(lru.toString() + lru.getSize())
+    lru.removeLast()//1:aaa 5:e
+
+    println(lru.toString() + lru.getSize())
 }
 
 
 class LruCache<K, V> {
     private val defaultCacheSize: Int = 16
-
-    private var currentCacheSize: Int = 0
     private var cacheSize: Int = defaultCacheSize
     private lateinit var caches: HashMap<K, CacheNode<K, V>>
     private var first: CacheNode<K, V>? = null
     private var last: CacheNode<K, V>? = null
 
     constructor(size: Int) {
-        this.currentCacheSize = 0
         this.cacheSize = size
         caches = HashMap<K, CacheNode<K, V>>(size)
+    }
+
+    fun getSize(): Int {
+        return caches.size
     }
 
     operator fun set(k: K, v: V) {
@@ -97,6 +101,7 @@ class LruCache<K, V> {
             if (node == last) {
                 last = node.pre
             }
+            caches.remove(k)
         }
     }
 
@@ -106,14 +111,16 @@ class LruCache<K, V> {
         caches.clear()
     }
 
-    private fun removeLast() {
+    fun removeLast() {
         if (last != null) {
+            var originLast = last
             last = last!!.pre
             if (last == null) {
                 first = null
             } else {
                 last!!.next = null
             }
+            caches.remove(originLast!!.key)
         }
     }
 
