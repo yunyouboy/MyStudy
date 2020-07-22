@@ -26,12 +26,10 @@ class FishRelativeLayout @JvmOverloads constructor(context: Context, attrs: Attr
     private var touchY: Float = 0f
 
     private var alpha = 100
-    private var ripple: Float
-        get() = ripple
-        set(value) {
-            // 透明度的变化 100 - 0
-            alpha = (100 * (1 - ripple)).toInt()
-            ripple = value
+    private var ripple: Float = 0f
+        private set(value) {//field指向属性本身
+            alpha = (100 * (1 - value)).toInt()
+            field = value
         }
 
     init {
@@ -61,8 +59,8 @@ class FishRelativeLayout @JvmOverloads constructor(context: Context, attrs: Attr
         super.onDraw(canvas)
         mPaint.alpha = alpha
         canvas.drawCircle(touchX, touchY, ripple * 150, mPaint)
+        invalidate()
     }
-
 
     @SuppressLint("ObjectAnimatorBinding")
     override fun onTouchEvent(event: MotionEvent): Boolean {
