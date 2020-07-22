@@ -16,16 +16,18 @@ class FishDrawable() : Drawable() {
     private val bodyAlpha: Int = 160
 
     // 鱼的重心
-    private lateinit var middlePoint: PointF
+    lateinit var middlePoint: PointF
+
+    lateinit var headerPoint: PointF
 
     // 鱼的主要朝向角度
-    private var fishMainAngle = 90f
+    var fishMainAngle = 90f
 
     /**
      * 鱼的长度值
      */
     // 绘制鱼头的半径
-    private val headerRadius = 100f
+    val headerRadius = 100f
 
     // 鱼身长度
     private val bodyLength = headerRadius * 3.2f
@@ -56,6 +58,8 @@ class FishDrawable() : Drawable() {
 
     private var currentValue: Float = 0.0f
 
+    var frequence = 1f
+
     init {
         mPaint.apply {
             style = Paint.Style.FILL
@@ -81,10 +85,10 @@ class FishDrawable() : Drawable() {
     }
 
     override fun draw(canvas: Canvas) {
-        var fishAngle: Float = (fishMainAngle + sin(Math.toRadians(currentValue * 1.2)) * 10).toFloat()
+        var fishAngle: Float = (fishMainAngle + sin(Math.toRadians(currentValue * 1.2 * frequence)) * 10).toFloat()
 
         // 绘制鱼头
-        var headerPoint = calculatePoint(middlePoint, bodyLength / 2, fishAngle)
+        headerPoint = calculatePoint(middlePoint, bodyLength / 2, fishAngle)
         canvas.drawCircle(headerPoint.x, headerPoint.y, headerRadius, mPaint)
 
         //绘制右鱼鳍
@@ -102,7 +106,7 @@ class FishDrawable() : Drawable() {
         drawSegment(canvas, segMentBottomCenterPoint, middleCircleRadius, smallCircleRadius, findSmallCircleLength, fishAngle, false)
         // 尾巴
 
-        var findEdgeLength: Float = abs(sin(Math.toRadians(currentValue * 1.5)) * bigCircleRadius).toFloat()
+        var findEdgeLength: Float = abs(sin(Math.toRadians(currentValue * 1.5 * frequence)) * bigCircleRadius).toFloat()
         drawTriangle(canvas, segMentBottomCenterPoint, findTriangleLength, findEdgeLength, fishAngle)
         drawTriangle(canvas, segMentBottomCenterPoint, findTriangleLength - 10, findEdgeLength - 20, fishAngle)
         // 身体
@@ -131,7 +135,7 @@ class FishDrawable() : Drawable() {
     }
 
     private fun drawTriangle(canvas: Canvas, startPoint: PointF, findCenterLength: Float, findEdgeLength: Float, fishAngle: Float) {
-        val triangleAngle = (fishAngle + sin(Math.toRadians(currentValue * 1.5)) * 35).toFloat()
+        val triangleAngle = (fishAngle + sin(Math.toRadians(currentValue * 1.5 * frequence)) * 35).toFloat()
         // 三角形底边的中心坐标
         val centerPoint = calculatePoint(startPoint, findCenterLength, triangleAngle - 180)
         // 三角形底边两点
@@ -149,10 +153,10 @@ class FishDrawable() : Drawable() {
     private fun drawSegment(canvas: Canvas, startPoint: PointF, bigRadius: Float, smallRadius: Float, findSmallCircleLength: Float, fishAngle: Float, hasBigCircle: Boolean): PointF {
         val segmentAngle: Float = if (hasBigCircle) {
             // 节肢1
-            (fishAngle + cos(Math.toRadians(currentValue * 1.5)) * 15).toFloat()
+            (fishAngle + cos(Math.toRadians(currentValue * 1.5 * frequence)) * 15).toFloat()
         } else {
             // 节肢2
-            (fishAngle + sin(Math.toRadians(currentValue * 1.5)) * 35).toFloat()
+            (fishAngle + sin(Math.toRadians(currentValue * 1.5 * frequence)) * 35).toFloat()
         }
 
         var bottomCenterPoint = calculatePoint(startPoint, findSmallCircleLength, segmentAngle - 180)
@@ -195,7 +199,7 @@ class FishDrawable() : Drawable() {
      * @param angle      鱼当前的朝向角度
      * @return
      */
-    private fun calculatePoint(startPoint: PointF, length: Float, angle: Float): PointF {
+    fun calculatePoint(startPoint: PointF, length: Float, angle: Float): PointF {
         var deltaX: Float = (cos(Math.toRadians(angle.toDouble())) * length).toFloat()
         var deltaY: Float = (sin(Math.toRadians((angle - 180).toDouble())) * length).toFloat()
         return PointF(startPoint.x + deltaX, startPoint.y + deltaY)
