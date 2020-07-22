@@ -6,7 +6,7 @@ package cn.readsense.lurcache
  *Description：
  **/
 fun main() {
-    val lru = LruCache<Int, String>(3)
+    val lru = LruCache20200721<Int, String>(3)
 
     lru[1] = "a"// 1:a
 
@@ -58,6 +58,8 @@ class LruCache20200721<K, V> {
         caches = HashMap(size)
     }
 
+    fun getSize() = caches.size
+
     operator fun set(k: K, v: V) {
         var node = caches[k]
         node ?: run {
@@ -94,7 +96,7 @@ class LruCache20200721<K, V> {
         caches.clear()
     }
 
-    private fun removeLast() {
+    fun removeLast() {
         last?.run {
             var originLast = last
             last = last!!.pre
