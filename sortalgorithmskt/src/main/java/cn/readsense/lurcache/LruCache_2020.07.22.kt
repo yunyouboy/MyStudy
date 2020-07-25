@@ -7,7 +7,7 @@ package cn.readsense.lurcache
  **/
 
 fun main() {
-    val lru = LurCache20200722<Int, String>(3)
+    val lru = LruCache20200722<Int, String>(3)
 
     lru[1] = "a"// 1:a
     println(lru.toString() + lru.getSize())
@@ -52,7 +52,7 @@ fun main() {
     println(lru.toString() + lru.getSize())
 }
 
-class LurCache20200722<K, V> {
+class LruCache20200722<K, V> {
 
     private val defaultSize: Int = 16
     private var cacheSize = defaultSize
