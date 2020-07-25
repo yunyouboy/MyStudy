@@ -27,7 +27,7 @@ class FishDrawable() : Drawable() {
      * 鱼的长度值
      */
     // 绘制鱼头的半径
-    val headerRadius = 100f
+    val headerRadius = 50f
 
     // 鱼身长度
     private val bodyLength = headerRadius * 3.2f
@@ -101,14 +101,14 @@ class FishDrawable() : Drawable() {
 
         var bodyBottomCenterPoint = calculatePoint(headerPoint, bodyLength, fishAngle - 180)
         //画节肢1
-        val segMentBottomCenterPoint = drawSegment(canvas, bodyBottomCenterPoint, bigCircleRadius, middleCircleRadius, findMiddleCircleLength, fishAngle, true)
+        val segmentBottomCenterPoint = drawSegment(canvas, bodyBottomCenterPoint, bigCircleRadius, middleCircleRadius, findMiddleCircleLength, fishAngle, true)
         // 画节肢2
-        drawSegment(canvas, segMentBottomCenterPoint, middleCircleRadius, smallCircleRadius, findSmallCircleLength, fishAngle, false)
+        drawSegment(canvas, segmentBottomCenterPoint, middleCircleRadius, smallCircleRadius, findSmallCircleLength, fishAngle, false)
         // 尾巴
 
         var findEdgeLength: Float = abs(sin(Math.toRadians(currentValue * 1.5 * frequence)) * bigCircleRadius).toFloat()
-        drawTriangle(canvas, segMentBottomCenterPoint, findTriangleLength, findEdgeLength, fishAngle)
-        drawTriangle(canvas, segMentBottomCenterPoint, findTriangleLength - 10, findEdgeLength - 20, fishAngle)
+        drawTriangle(canvas, segmentBottomCenterPoint, findTriangleLength, findEdgeLength, fishAngle)
+        drawTriangle(canvas, segmentBottomCenterPoint, findTriangleLength - 10, findEdgeLength - 20, fishAngle)
         // 身体
         drawBody(canvas, headerPoint, bodyBottomCenterPoint, fishAngle)
     }
@@ -181,7 +181,7 @@ class FishDrawable() : Drawable() {
      * 绘制鱼鳍
      */
     private fun drawFins(canvas: Canvas, startPoint: PointF, fishAngle: Float, isRight: Boolean) {
-        val controlAngle = 115f
+        val controlAngle: Float = (115f + sin(Math.toRadians(currentValue * 1.5 * frequence)) * 10).toFloat()
 
         // 鱼鳍的终点 --- 二阶贝塞尔曲线的终点
         val endPoint = calculatePoint(startPoint, finsLength, fishAngle - 180)
