@@ -19,6 +19,7 @@
         <activity android:name=".ViewpagerDemoActivity" />
         <activity android:name=".CenterTextActivity" />
         <activity android:name=".FishActivity" />
+        <activity android:name=".toprecycleview.TopRecycleViewActivity" />
     </application>
 
 </manifest>

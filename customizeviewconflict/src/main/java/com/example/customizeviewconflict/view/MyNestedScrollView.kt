@@ -14,7 +14,7 @@ import com.example.customizevielib.utils.FlingHelper
 
 @RequiresApi(Build.VERSION_CODES.M)
 class MyNestedScrollView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : NestedScrollView(context, attrs, defStyleAttr) {
-    private val TAG: String = MyNestedScrollView::class.simpleName.toString()
+    private val tag: String = MyNestedScrollView::class.simpleName.toString()
     private lateinit var contentView: ViewGroup
     lateinit var topView: ViewGroup
 
@@ -35,11 +35,11 @@ class MyNestedScrollView @JvmOverloads constructor(context: Context, attrs: Attr
                 isStartFling = false
             }
             if (scrollY == 0) {
-                Log.e(TAG, "TOP SCROLL")
+                Log.e(tag, "TOP SCROLL")
                 // refreshLayout.setEnabled(true);
             }
             if (scrollY == getChildAt(0).measuredHeight - v.measuredHeight) {
-                Log.e(TAG, "BOTTOM SCROLL")
+                Log.e(tag, "BOTTOM SCROLL")
                 dispatchChildFling()
             }
             //在RecyclerView fling情况下，记录当前RecyclerView在y轴的偏移

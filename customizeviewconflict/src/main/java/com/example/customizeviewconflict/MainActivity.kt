@@ -8,7 +8,6 @@ import com.example.customizeviewconflict.databinding.ActivityMainBinding
 import com.example.customizeviewconflict.fragment.RecyclerViewFragment
 import com.example.customizeviewconflict.viewpager.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,9 +18,9 @@ class MainActivity : AppCompatActivity() {
         binding.viewpage.adapter = ViewPagerAdapter(getPageFragments(), this@MainActivity)
 
         val labels = arrayOf("linear", "scroll", "recycler")
-        TabLayoutMediator(binding.tablayout, binding.viewpage, TabConfigurationStrategy { tab, position ->
+        TabLayoutMediator(binding.tablayout, binding.viewpage) { tab, position ->
             tab.text = labels[position]
-        }).attach()
+        }.attach()
         binding.swipeRefreshLayout?.setOnRefreshListener {
             binding.root.postDelayed(
                     { binding.swipeRefreshLayout?.isRefreshing = false },
