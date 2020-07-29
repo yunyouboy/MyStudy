@@ -1,4 +1,4 @@
-package cn.readsense.lurcache
+package cn.readsense.lrucache
 
 
 /**

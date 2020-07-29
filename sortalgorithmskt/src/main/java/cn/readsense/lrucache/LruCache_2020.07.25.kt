@@ -1,4 +1,4 @@
-package cn.readsense.lurcache
+package cn.readsense.lrucache
 
 fun main() {
     val lru = LruCache20200725<Int, String>(3)
@@ -71,7 +71,6 @@ class LruCache20200725<K, V> {
         node ?: run {
             if (caches.size >= cacheSize) {
                 removeLast()
-                caches.remove(tail?.key)
             }
             node = Node(k)
         }
@@ -118,10 +117,9 @@ class LruCache20200725<K, V> {
 
     fun removeLast() {
         tail?.run {
-            var originTai = tail
+            caches.remove(tail!!.key)
             tail = tail!!.pre
             if (null == tail) head = null else tail!!.next = null
-            caches.remove(tail!!.key)
         }
     }
 

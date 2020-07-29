@@ -1,4 +1,4 @@
-package cn.readsense.lurcache
+package cn.readsense.lrucache
 
 /**
  *Author:qyg
@@ -75,7 +75,6 @@ class LruCache20200722<K, V> {
         var node = caches[k]
         node ?: run {
             if (caches.size >= cacheSize) {
-                caches.remove(tail?.key)
                 removeLast()
             }
             node = Node(k)
@@ -108,10 +107,9 @@ class LruCache20200722<K, V> {
 
     fun removeLast() {
         tail?.run {
-            var origTail = tail
+            caches.remove(tail!!.key)
             tail = tail!!.pre
             if (null == tail) head = null else tail!!.next = null
-            caches.remove(origTail!!.key)
         }
     }
 

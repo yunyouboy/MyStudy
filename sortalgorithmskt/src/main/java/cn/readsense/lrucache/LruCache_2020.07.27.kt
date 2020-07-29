@@ -1,4 +1,4 @@
-package cn.readsense.lurcache
+package cn.readsense.lrucache
 
 /**
  *Author:qyg
@@ -7,49 +7,49 @@ package cn.readsense.lurcache
  **/
 
 fun main() {
-    val lru = LruCache20200725<Int, String>(3)
+    val lru = LruCache20200727<Int, String>(3)
 
     lru[1] = "a"// 1:a
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[2] = "b"// 2:b 1:a
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[3] = "c" // 3:c 2:b 1:a
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
-    lru.reverseList()// 1:a 2:b 3:c
-    println(lru.toString() + lru.getSize())
+    lru.reverse()// 1:a 2:b 3:c
+    println(lru.toString())
 
-    lru.reverseListBySwapData()// 3:c 2:b 1:a
-    println(lru.toString() + lru.getSize())
+    lru.reverseBySwapData()// 3:c 2:b 1:a
+    println(lru.toString())
 
     lru[4] = "d" //4:d 3:c 2:b
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[1] = "aa" // 1:aa 4:d 3:c
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[2] = "bb" // 2:bb 1:aa 4:d
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[5] = "e" // 5:e 2:bb 1:aa
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[1] // 1:aa 5:e 2:bb
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru.remove(11) // 1:aa 5:e 2:bb
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru.remove(1) //5:e 2:bb
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru[1] = "aaa" //1:aaa 5:e 2:bb
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 
     lru.removeLast() //1:aaa 5:e
-    println(lru.toString() + lru.getSize())
+    println(lru.toString())
 }
 
 class LruCache20200727<K, V> {
@@ -64,6 +64,8 @@ class LruCache20200727<K, V> {
         caches = HashMap(size)
     }
 
+    internal fun getSize() = caches.size
+
     operator fun get(k: K): V? {
         val node = caches[k] ?: return null
         moveToHead(node)
@@ -75,9 +77,8 @@ class LruCache20200727<K, V> {
         node ?: run {
             if (caches.size >= cacheSize) {
                 removeLast()
-                caches.remove(tail?.key)
             }
-            node = Node<K, V>(k)
+            node = Node(k)
         }
         node!!.value = v
         moveToHead(node!!)
@@ -99,12 +100,11 @@ class LruCache20200727<K, V> {
         caches.clear()
     }
 
-    private fun removeLast() {
+    fun removeLast() {
         tail?.run {
-            var originTail = tail
+            caches.remove(tail!!.key)
             tail = tail!!.pre
             if (null == tail) head = null else tail!!.next = null
-            caches.remove(originTail!!.key)
         }
     }
 
@@ -115,20 +115,20 @@ class LruCache20200727<K, V> {
                 node.pre?.next = node.next
                 node.next?.pre = node.pre
                 if (node == tail) tail = node.pre
-                if (null == head || tail == head) {
+                if (null == tail || null == head ) {
                     head = node
                     tail = head
                     return
                 }
-                head!!.pre = node
                 node.next = head
+                head!!.pre = node
                 node.pre = null
                 head = node
             }
         }
     }
 
-    private fun reverseBySwap() {
+    internal fun reverseBySwapData() {
         var headNode: Node<K, V>? = head
         var tailNode: Node<K, V>? = tail
         while (headNode != tailNode) {
@@ -144,7 +144,7 @@ class LruCache20200727<K, V> {
         }
     }
 
-    private fun reverse() {
+    internal fun reverse() {
         var temp: Node<K, V>? = null
         var cut: Node<K, V>? = head
         tail = head//翻转后的尾 为 未反转时的头
@@ -157,6 +157,20 @@ class LruCache20200727<K, V> {
         if (null != temp) {//翻转之后temp为倒数第二个节点
             head = temp.pre
         }
+    }
+
+    override fun toString(): String {
+        var sb = StringBuilder()
+        var node = head
+        while (null != node) {
+            sb.append("${node.key} ")
+            sb.append("${node.value} ")
+            sb.append(",")
+            node = node.next
+        }
+        sb.append( caches.size)
+        sb.append("\n")
+        return sb.toString()
     }
 
     inner class Node<T, U> {
