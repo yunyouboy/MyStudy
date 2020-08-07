@@ -2,15 +2,17 @@ package com.example.materialdesign
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.materialdesign.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState != null) return
-        val fragmentManager = supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.add(R.id.frameLayout, MainFragment.Companion.newIntance(), MainFragment::class.java.name)
-        transaction.commit()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportFragmentManager.beginTransaction().run {
+            add(binding.frameLayout.id, MainFragment.newIntance(), MainFragment::class.java.name)
+            commit()
+        }
     }
 }

@@ -8,7 +8,6 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.materialdesign.R
-import com.example.materialdesign.chips.ChipsActivity
 import com.example.materialdesign.databinding.ActivityChipsBinding
 import com.google.android.material.chip.ChipDrawable
 
@@ -25,21 +24,19 @@ class ChipsActivity : AppCompatActivity() {
             val text = binding.etTest.text
             chipDrawable.text = text.toString()
             text.setSpan(span, 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.chip0.backgroundDrawable = chipDrawable
         }
         binding.seekbar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 val max = seekBar.max
-                val scale = progress as Double / max as Double
+                val scale = progress.toDouble() / max.toDouble()
                 val drawable = binding.ivShow.background as ClipDrawable
-                drawable.level = (10000 * scale) as Int
-                binding.tvInfo.text = progress.toString() + ""
+                drawable.level = (10000 * scale).toInt()
+                //binding.tvInfo.text = progress.toString() + ""
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-        binding.materialbtn1.setOnClickListener {
-            binding.materialbtn.isEnabled = !binding.materialbtn.isEnabled
-        }
     }
 }

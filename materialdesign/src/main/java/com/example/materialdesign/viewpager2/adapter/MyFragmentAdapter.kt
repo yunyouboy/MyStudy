@@ -10,7 +10,7 @@ class MyFragmentAdapter(fragmentActivity: FragmentActivity, private val fragment
     }
 
     override fun getItemCount(): Int {
-        return fragments?.size ?: 0
+        return fragments?.size
     }
 
 }

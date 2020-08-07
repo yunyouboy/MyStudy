@@ -14,6 +14,7 @@ import com.example.materialdesign.viewpager2.fragment.TwoFragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
+import kotlin.math.abs
 
 class ViewPager2Activity : AppCompatActivity() {
     private lateinit var binding: ActivityViewPager2Binding
@@ -21,10 +22,10 @@ class ViewPager2Activity : AppCompatActivity() {
     private lateinit var titles: MutableList<String?>
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-        //        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
+        //    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        //}
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState)
         binding = ActivityViewPager2Binding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,7 +33,7 @@ class ViewPager2Activity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.collapsingToolbarLayout.title = "ViewPager2"
         binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (Math.abs(verticalOffset) >= appBarLayout.totalScrollRange) {
+            if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
                 binding.collapsingToolbarLayout.title = "ViewPager2"
             } else {
                 binding.collapsingToolbarLayout.title = ""
@@ -51,6 +52,6 @@ class ViewPager2Activity : AppCompatActivity() {
         titles.add("FourFragment")
         val myFragmentAdapter = MyFragmentAdapter(this, fragmentList)
         binding.viewPager.adapter = myFragmentAdapter
-        TabLayoutMediator(binding.tab, binding.viewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position -> tab.text = titles.get(position) }).attach()
+        TabLayoutMediator(binding.tab, binding.viewPager, TabLayoutMediator.TabConfigurationStrategy { tab, position -> tab.text = titles[position] }).attach()
     }
 }

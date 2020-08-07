@@ -49,75 +49,62 @@ class MainFragment : ListFragment() {
         listAdapter = arrayAdapter
     }
 
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
+    override fun onListItemClick(listView: ListView, view: View, position: Int, id: Long) {
+        super.onListItemClick(listView, view, position, id)
         val item = arrayAdapter.getItem(position)
         Toast.makeText(activity, item, Toast.LENGTH_LONG).show()
-        val gotoAct: Intent
+        val gotoAct: Intent?
         when (position) {
             0 -> {
                 gotoAct = Intent(activity, ToolbarActivity::class.java)
-                startActivity(gotoAct)
             }
             1 -> {
                 gotoAct = Intent(activity, FloatActionButtonActivity::class.java)
-                startActivity(gotoAct)
             }
             2 -> {
                 gotoAct = Intent(activity, MaterialButtonActivity::class.java)
-                startActivity(gotoAct)
             }
             3 -> {
                 gotoAct = Intent(activity, CloudMusicActivity::class.java)
-                startActivity(gotoAct)
             }
             4 -> {
                 gotoAct = Intent(activity, TextInputActivity::class.java)
-                startActivity(gotoAct)
             }
             5 -> {
                 gotoAct = Intent(activity, CardViewActivity::class.java)
-                startActivity(gotoAct)
             }
             6 -> {
                 gotoAct = Intent(activity, TabActivity::class.java)
-                startActivity(gotoAct)
             }
             7 -> {
                 gotoAct = Intent(activity, CoordinatorActivity::class.java)
-                startActivity(gotoAct)
             }
             8 -> {
                 gotoAct = Intent(activity, QQMusicActivity::class.java)
-                startActivity(gotoAct)
             }
             9 -> {
                 gotoAct = Intent(activity, BottomSheetsActivity::class.java)
-                startActivity(gotoAct)
             }
             10 -> {
                 gotoAct = Intent(activity, ViewPager2Activity::class.java)
-                startActivity(gotoAct)
             }
             11 -> {
                 gotoAct = Intent(activity, BottomAppBarActivity::class.java)
-                startActivity(gotoAct)
             }
             12 -> {
                 gotoAct = Intent(activity, ChipsActivity::class.java)
-                startActivity(gotoAct)
             }
             13 -> {
                 gotoAct = Intent(activity, ZActivity::class.java)
-                startActivity(gotoAct)
             }
             14 -> {
                 gotoAct = Intent(activity, NestScrollActivity::class.java)
-                startActivity(gotoAct)
             }
             else -> {
+                gotoAct = null
             }
         }
+        startActivity(gotoAct!!)
     }
 
     companion object {

@@ -7,7 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
 
-class BottomNavBehavior : CoordinatorLayout.Behavior<View?> {
+class BottomNavBehavior : CoordinatorLayout.Behavior<View> {
     constructor() {}
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
 
