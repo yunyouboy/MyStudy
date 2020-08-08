@@ -1,3 +1,5 @@
+include ':materialdesign'
+include ':lazyloadviewpage'
 include ':customizevielib'
 include ':customizeviewconflict'
 include ':skinskin'
