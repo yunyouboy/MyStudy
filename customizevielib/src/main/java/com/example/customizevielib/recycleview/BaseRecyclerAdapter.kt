@@ -44,15 +44,21 @@ constructor(private val layoutRes: Int,
         notifyItemInserted(baseList.size - 1)
     }
 
+    fun addData(bean: Bean, position: Int) {
+        baseList.add(0, bean)
+        notifyDataSetChanged()
+    }
+
     fun addDatas(datas: MutableList<Bean>) {
         baseList.addAll(datas)
         notifyItemRangeInserted(baseList.size - datas.size, datas.size)
     }
 
-    fun removeData(position: Int) {
-        baseList.removeAt(position)
+    fun removeData(position: Int): Bean {
+        val bean = baseList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, baseList.size)
+        return bean
     }
 
     fun onItemMove(fromPosition: Int, toPosition: Int) {

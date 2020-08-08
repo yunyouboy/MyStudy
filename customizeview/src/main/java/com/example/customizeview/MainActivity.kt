@@ -3,6 +3,7 @@ package com.example.customizeview
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.customizeview.slidecardview2.SlideCardActivity
 import com.example.customizeview.toprecycleview.TopRecycleViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,6 +29,11 @@ class MainActivity : AppCompatActivity() {
 
         tv_to_recycle_view.setOnClickListener {
             val intent: Intent = Intent(this@MainActivity, TopRecycleViewActivity::class.java)
+            startActivity(intent)
+        }
+
+        tv_to_slide_card_view.setOnClickListener{
+            val intent: Intent = Intent(this@MainActivity, SlideCardActivity::class.java)
             startActivity(intent)
         }
     }

@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.customizeview.R
 import com.example.customizeview.databinding.RecycleViewBinding
+import com.example.customizeview.slidecardview.CardConfig
 
 class TopRecycleViewActivity : AppCompatActivity() {
 
@@ -13,6 +14,10 @@ class TopRecycleViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this@TopRecycleViewActivity, R.layout.activity_top_recycleview)
+
+        // 初始化数据
+        CardConfig.initConfig(this)
+
         binding.rvList.apply {
             layoutManager = LinearLayoutManager(this@TopRecycleViewActivity)
             addItemDecoration(StarDecoration())

@@ -4,7 +4,7 @@
     <data class="RecycleViewItemBinding">
 
         <variable
-            name="startName"
+            name="star"
             type="com.example.customizeview.toprecycleview.Star" />
     </data>
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
-            android:text="@{startName.name}"
+            android:text="@{star.name}"
             android:textSize="20sp" />
 
     </RelativeLayout>

@@ -6,7 +6,7 @@ import com.example.customizeview.databinding.RecycleViewItemBinding
 
 class StarAdapter(override val baseList: MutableList<Star>, onItemClick: (Int) -> Unit) : BaseRecyclerAdapter<Star, RecycleViewItemBinding>(R.layout.rv_item_star, onItemClick) {
     override fun bindData(binding: RecycleViewItemBinding, position: Int) {
-        binding.startName = baseList[position]
+        binding.star = baseList[position]
     }
 
     internal fun isGroupHeader(position: Int): Boolean {
