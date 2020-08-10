@@ -9,36 +9,19 @@ import androidx.core.view.NestedScrollingChild
 import androidx.core.view.NestedScrollingChildHelper
 import androidx.core.view.ViewCompat
 
-class MyNestedScrollChildL : LinearLayout, NestedScrollingChild {
-    private lateinit var helper: NestedScrollingChildHelper
+class MyNestedScrollChildL @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : LinearLayout(context, attrs, defStyleAttr), NestedScrollingChild {
 
-    constructor(context: Context?) : super(context) {
-        init(context)
+    companion object {
+        private const val Tag: String = "Zero"
     }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
+    private var helper: NestedScrollingChildHelper = NestedScrollingChildHelper(this)
+
+    init {
+        helper.isNestedScrollingEnabled = true
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(context)
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init(context)
-    }
-
-    private fun init(context: Context?) {
-        helper = NestedScrollingChildHelper(this)
-        helper.setNestedScrollingEnabled(true)
-    }
-
-    override fun setNestedScrollingEnabled(enabled: Boolean) {
-        helper.setNestedScrollingEnabled(enabled)
-        Log.i(Tag, "setNestedScrollingEnabled:$enabled")
-    }
-
-    var realHeight = 0
+    private var realHeight = 0
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var heightMeasureSpec = heightMeasureSpec
         realHeight = 0
@@ -61,7 +44,12 @@ class MyNestedScrollChildL : LinearLayout, NestedScrollingChild {
      */
     override fun isNestedScrollingEnabled(): Boolean {
         Log.i(Tag, "isNestedScrollingEnabled")
-        return helper.isNestedScrollingEnabled()
+        return helper.isNestedScrollingEnabled
+    }
+
+    override fun setNestedScrollingEnabled(enabled: Boolean) {
+        helper.isNestedScrollingEnabled = enabled
+        Log.i(Tag, "setNestedScrollingEnabled:$enabled")
     }
 
     override fun startNestedScroll(axes: Int): Boolean {
@@ -78,8 +66,7 @@ class MyNestedScrollChildL : LinearLayout, NestedScrollingChild {
         return helper.hasNestedScrollingParent()
     }
 
-    override fun dispatchNestedScroll(dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int,
-                                      dyUnconsumed: Int, offsetInWindow: IntArray?): Boolean {
+    override fun dispatchNestedScroll(dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, offsetInWindow: IntArray?): Boolean {
         Log.i(Tag, "dispatchNestedScroll:dxConsumed:" + dxConsumed + "," +
                 "dyConsumed:" + dyConsumed + ",dxUnconsumed:" + dxUnconsumed + ",dyUnconsumed:" +
                 dyUnconsumed + ",offsetInWindow:" + offsetInWindow)
@@ -105,20 +92,20 @@ class MyNestedScrollChildL : LinearLayout, NestedScrollingChild {
         val consumed = IntArray(2)
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                mLastTouchY = (event.rawY + .5f) as Int
+                mLastTouchY = (event.rawY + .5f).toInt()
                 var nestedScrollAxis = ViewCompat.SCROLL_AXIS_NONE
-                nestedScrollAxis = nestedScrollAxis or ViewCompat.SCROLL_AXIS_HORIZONTAL
+                nestedScrollAxis = nestedScrollAxis or ViewCompat.SCROLL_AXIS_VERTICAL
                 startNestedScroll(nestedScrollAxis)
             }
             MotionEvent.ACTION_MOVE -> {
-                val x = (event.rawX + .5f) as Int
-                val y = (event.rawY + .5f) as Int
+                val x = (event.rawX + .5f).toInt()
+                val y = (event.rawY + .5f).toInt()
                 val dx = mLastTouchX - x
                 var dy = mLastTouchY - y
                 mLastTouchX = x
                 mLastTouchY = y
-                //                consumed[0] = dx;
-//                consumed[1] = dy;
+                //consumed[0] = dx;
+                //consumed[1] = dy;
                 if (dispatchNestedPreScroll(dx, dy, consumed, null)) {
                     Log.i("onMeasure", "dy: " + dy + ", cosumed: " + consumed[1])
                     dy -= consumed[1]
@@ -148,9 +135,5 @@ class MyNestedScrollChildL : LinearLayout, NestedScrollingChild {
             Log.e("onMeasure", "scrollTo: $y")
             super.scrollTo(x, y)
         }
-    }
-
-    companion object {
-        private val Tag: String? = "Zero"
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
 
 class BottomNavBehavior : CoordinatorLayout.Behavior<View> {
@@ -22,7 +21,8 @@ class BottomNavBehavior : CoordinatorLayout.Behavior<View> {
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
         val top = ((dependency.layoutParams as CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
-        ViewCompat.setTranslationY(child, -top.toFloat())
+        //ViewCompat.setTranslationY(child, -top.toFloat())
+        child.translationY = -top.toFloat()
         return false
     }
 }

@@ -13,13 +13,13 @@ class CoordinatorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCoordinatorBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-        //        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
+        /*if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }*/
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         super.onCreate(savedInstanceState)
         binding = ActivityCoordinatorBinding.inflate(layoutInflater)
-        setContentView(binding.getRoot())
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
