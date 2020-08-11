@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MaterialAppTheme">
-        <activity android:name=".materialtext.TextInputActivity"
-            android:theme="@style/MaterialAppTheme"/>
+        <activity
+            android:name=".materialtext.TextInputActivity"
+            android:theme="@style/MaterialAppTheme" />
         <activity android:name=".materialbutton.MaterialButtonActivity" />
         <activity android:name=".nestedscroll.activity.NestScrollActivity" />
         <activity android:name=".z.ZActivity" />
@@ -26,6 +27,11 @@
         <activity
             android:name=".coordinator.CoordinatorActivity"
             android:theme="@style/TranslucentTheme" />
+        <activity
+            android:name=".coordinatorstudy.CoordinatorMainActivity"
+            android:label="Coordinator2" />
+        <activity android:name=".coordinatorstudy.Demo01Activity" />
+        <activity android:name=".coordinatorstudy.Demo02Activity" />
         <activity
             android:name=".cardview.CardViewActivity"
             android:label="CardView" />

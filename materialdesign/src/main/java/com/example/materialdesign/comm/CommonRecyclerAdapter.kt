@@ -80,7 +80,7 @@ abstract class CommonRecyclerAdapter<T>(//上下文
             }
             false
         })
-        convert(holder, list.get(position), position, isScrolling)
+        convert(holder, list[position], position, isScrolling)
     }
 
     override fun getItemCount(): Int {
@@ -103,6 +103,6 @@ abstract class CommonRecyclerAdapter<T>(//上下文
      * @param position    位置
      * @param isScrolling 是否在滑动
      */
-    abstract fun convert(holder: CommonRecyclerHolder?, item: T?, position: Int, isScrolling: Boolean)
+    abstract fun convert(holder: CommonRecyclerHolder, item: T, position: Int, isScrolling: Boolean)
 
 }

@@ -14,6 +14,7 @@ import com.example.materialdesign.bottomsheets.BottomSheetsActivity
 import com.example.materialdesign.cardview.CardViewActivity
 import com.example.materialdesign.chips.ChipsActivity
 import com.example.materialdesign.coordinator.CoordinatorActivity
+import com.example.materialdesign.coordinatorstudy.CoordinatorMainActivity
 import com.example.materialdesign.floatingactionbutton.FloatActionButtonActivity
 import com.example.materialdesign.materialbutton.MaterialButtonActivity
 import com.example.materialdesign.materialtext.TextInputActivity
@@ -44,7 +45,8 @@ class MainFragment : ListFragment() {
                 "BottomAppBarActivity",  //11
                 "ChipsActivity",  //12
                 "ZActivity",  //13
-                "NestScrollActivity")
+                "NestScrollActivity",//14
+                "CoordinatorLayout2")
         arrayAdapter = ArrayAdapter(view.context, R.layout.simple_list_item_1, array)
         listAdapter = arrayAdapter
     }
@@ -99,6 +101,9 @@ class MainFragment : ListFragment() {
             }
             14 -> {
                 gotoAct = Intent(activity, NestScrollActivity::class.java)
+            }
+            15 -> {
+                gotoAct = Intent(activity, CoordinatorMainActivity::class.java)
             }
             else -> {
                 gotoAct = null
