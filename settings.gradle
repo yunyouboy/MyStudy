@@ -1,3 +1,4 @@
+include ':phontoview'
 include ':materialdesign'
 include ':lazyloadviewpage'
 include ':customizevielib'

@@ -62,7 +62,7 @@ class MyNestedScrollParentL @JvmOverloads constructor(context: Context, attrs: A
      * 在滑动之前会被调用，他的作用就是子类在滑动的时候，分发一下，是否有父类需要消费滑动，这个时候，父类就可以根据自己的业务逻辑进行消费部分和全部消费
      *
      * @param target
-     * @param dx
+     * @param dx >0向左滑动，<0向右滑动
      * @param dy >0向上滑动，<0向下滑动
      * @param consumed
      */

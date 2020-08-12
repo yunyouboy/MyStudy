@@ -21,10 +21,14 @@ class SampleHeaderBehavior(context: Context?, attrs: AttributeSet?) : Coordinato
         return true
     }
 
+    /**
+     * dx X轴上滚动距离，旧位置 - 新位置， >0向左滑动，<0向右滑动
+     * dy Y轴上滚动距离，旧位置 - 新位置， >0向上滑动，<0向下滑动
+     */
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: TextView, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
         var consumedy = 0 // 记录我们消费的距离
         //dy是滚动,理解为画布不动，内容平移。
-        //offsetTopAndBottom，理解为内容不懂，画布平移。
+        //offsetTopAndBottom，理解为内容不动，画布平移。
         //所以，dy值、offsetTopAndBottom值，正负相反
         var offset = mOffsetTopAndBottom - dy
         val minOffset = -getChildScrollRang(child)
