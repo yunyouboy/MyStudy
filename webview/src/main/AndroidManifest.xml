@@ -5,6 +5,7 @@
     <application android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.WebViewActivity"
+            android:process=":mywebview"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 </manifest>
