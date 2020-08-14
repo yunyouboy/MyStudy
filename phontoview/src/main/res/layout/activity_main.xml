@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <cn.readsense.phontoview.view.MultiTouchEvent
+    <cn.readsense.phontoview.view.PhotoView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -1,3 +1,7 @@
+include ':webviewbase'
+include ':webviewcommon'
+include ':webview'
+include ':webviewapp'
 include ':phontoview'
 include ':materialdesign'
 include ':lazyloadviewpage'

@@ -66,8 +66,8 @@ class PhotoView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        var smallScale:Float = 0f
-        var bigScale:Float = 0f
+        var smallScale: Float = 0f
+        var bigScale: Float = 0f
         if (bitmap.width.toFloat() / bitmap.height > measuredWidth.toFloat() / measuredHeight) {
             // smallScale 是宽全屏
             smallScale = measuredWidth.toFloat() / bitmap.width
@@ -132,9 +132,38 @@ class PhotoView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
                 offsetX = (e.x - width / 2f) - (e.x - width / 2f) * bigScale / smallScale
                 offsetY = (e.y - height / 2f) - (e.y - height / 2f) * bigScale / smallScale
                 fixOffsets()
-                getScaleAnimation().start()
+                when {
+                    currentScale < bigScale -> {
+                        getScaleAnimation(currentScale, bigScale).start()
+                    }
+                    currentScale == bigScale -> {
+                        getScaleAnimation(currentScale, miniSmallScale).start()
+                    }
+                    (currentScale > bigScale) && (currentScale < maxBigScale) -> {
+                        getScaleAnimation(currentScale, maxBigScale).start()
+                    }
+                    currentScale == maxBigScale -> {
+                        getScaleAnimation(currentScale, bigScale).start()
+                    }
+                }
             } else {
-                getScaleAnimation().reverse()
+                offsetX = (e.x - width / 2f) - (e.x - width / 2f) * bigScale / smallScale
+                offsetY = (e.y - height / 2f) - (e.y - height / 2f) * bigScale / smallScale
+                fixOffsets()
+                when {
+                    currentScale == miniSmallScale -> {
+                        getScaleAnimation(currentScale, bigScale).start()
+                    }
+                    currentScale < bigScale -> {
+                        getScaleAnimation(currentScale, miniSmallScale).start()
+                    }
+                    currentScale > bigScale -> {
+                        getScaleAnimation(currentScale, bigScale).start()
+                    }
+                    currentScale == bigScale -> {
+                        getScaleAnimation(currentScale, miniSmallScale).start()
+                    }
+                }
             }
             return super.onDoubleTap(e)
         }
@@ -250,11 +279,11 @@ class PhotoView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         override fun onScaleEnd(detector: ScaleGestureDetector) {}
     }
 
-    private fun getScaleAnimation(): ObjectAnimator {
+    private fun getScaleAnimation(startScal: Float, endScal: Float): ObjectAnimator {
         if (null == scaleAnimator) {
             scaleAnimator = ObjectAnimator.ofFloat(this, "currentScale", 0f)
         }
-        scaleAnimator!!.setFloatValues(smallScale, bigScale)
+        scaleAnimator!!.setFloatValues(startScal, endScal)
         return scaleAnimator!!
     }
 

@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    viewBinding {
+        enabled true
+    }
+    dataBinding {
+        enabled true
+    }
+}
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+    implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
+    //annotationProcessor rootProject.googleAutoServiceDependency
+    api rootProject.googleAutoServiceDependency
+    kapt rootProject.googleAutoServiceDependency
+
+
+    //kapt "com.android.databinding:compiler:4.0.0"
+    kapt 'androidx.databinding:databinding-compiler:4.0.0'
+    api project(path: ':webviewcommon')
+}

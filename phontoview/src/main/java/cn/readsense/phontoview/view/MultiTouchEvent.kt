@@ -11,6 +11,8 @@ import cn.readsense.phontoview.util.Utils
 
 /**
  * 最后一个按下的手指处理事件
+ * index:是变化的
+ * id:是固定的按顺序排列的
  */
 class MultiTouchEvent @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     companion object {
