@@ -11,10 +11,8 @@ import cn.readsense.webview.R
 import cn.readsense.webview.activity.WebViewActivity
 import cn.readsense.webview.databinding.FragmentWebviewBinding
 import cn.readsense.webview.utils.Constants
-import cn.readsense.webview.webchromclient.MyWebChromeClient
-import cn.readsense.webview.webchromclient.WebChromeCallBack
-import cn.readsense.webview.webviewclient.MyWebViewClient
-import cn.readsense.webview.webviewclient.WebViewCallBack
+import cn.readsense.webview.webviewprocess.webchromclient.WebChromeCallBack
+import cn.readsense.webview.webviewprocess.webviewclient.WebViewCallBack
 import cn.readsense.webviewbase.loadsir.ErrorCallback
 import cn.readsense.webviewbase.loadsir.LoadingCallback
 import com.kingja.loadsir.core.LoadService
@@ -60,10 +58,8 @@ class WebViewFragment : Fragment(), WebViewCallBack, WebChromeCallBack, OnRefres
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_webview, container, false)
         mBinding.webview.run {
-            settings.javaScriptEnabled = true
+            registerWebViewCallBack(this@WebViewFragment, this@WebViewFragment)
             loadUrl(mUrl)
-            webViewClient = MyWebViewClient(this@WebViewFragment)
-            webChromeClient = MyWebChromeClient(this@WebViewFragment)
         }
 
         mBinding.smartrefreshlayout.run {

@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this@MainActivity, R.layout.activity_main)
         binding.openWebviewactivity.setOnClickListener {
             WebViewServiceLoader.load(IWebViewService::class.java)?.run {
-                startWebViewActivity(this@MainActivity, "https://www.baidu.com", "百度", true)
+                //startWebViewActivity(this@MainActivity, "https://www.baidu.com", "百度", true)
+                startDemoHtml(this@MainActivity)
             }
         }
     }

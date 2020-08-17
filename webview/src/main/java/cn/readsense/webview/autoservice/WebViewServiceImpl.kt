@@ -28,4 +28,12 @@ class WebViewService : IWebViewService {
     override fun getWebViewFragment(url: String, canNativeRefresh: Boolean): Fragment {
         return WebViewFragment.newInstance(url, canNativeRefresh)
     }
+
+    override fun startDemoHtml(context: Context) {
+        val intent = Intent(context, WebViewActivity::class.java).run {
+            putExtra(Constants.TITLE, "本地Demo测试页")
+            putExtra(Constants.URL, Constants.ANDROID_ASSET_URI.toString() + "demo.html")
+        }
+        context.startActivity(intent)
+    }
 }

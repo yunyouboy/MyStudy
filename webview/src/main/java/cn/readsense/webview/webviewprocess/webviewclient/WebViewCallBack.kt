@@ -1,4 +1,4 @@
-package cn.readsense.webview.webviewclient
+package cn.readsense.webview.webviewprocess.webviewclient
 
 /**
  *Author:qyg
