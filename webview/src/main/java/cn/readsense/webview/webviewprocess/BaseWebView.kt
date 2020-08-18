@@ -1,11 +1,10 @@
-package cn.readsense.webview.view
+package cn.readsense.webview.webviewprocess
 
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
-import android.widget.Toast
 import cn.readsense.webview.bean.JsParam
 import cn.readsense.webview.webviewprocess.settings.WebViewDefaultSettings
 import cn.readsense.webview.webviewprocess.webchromclient.MyWebChromeClient
@@ -23,6 +22,7 @@ class BaseWebView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     private val tag: String = BaseWebView::class.simpleName.toString()
 
     init {
+        WebViewProcessCommandDispatcher.getInstance().initAidlConnection()
         WebViewDefaultSettings.instance.setSettings(this@BaseWebView)
         addJavascriptInterface(this@BaseWebView, "mywebview")
     }
@@ -38,8 +38,7 @@ class BaseWebView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         jsParam?.run {
             val jsParamObject: JsParam = Gson().fromJson(jsParam, JsParam::class.java)
             jsParamObject?.run {
-                if ("showToast".equals(jsParamObject.name, ignoreCase = true))
-                    Toast.makeText(context, (Gson().fromJson(jsParamObject.param, MutableMap::class.java)["message"]).toString(), Toast.LENGTH_LONG).show()
+                WebViewProcessCommandDispatcher.getInstance().executeCommand(jsParamObject.name, Gson().toJson(jsParamObject.param), this@BaseWebView)
             }
         }
     }

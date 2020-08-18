@@ -3,10 +3,13 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.WebViewActivity"
             android:process=":mywebview"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <service android:name=".mainprocess.MainProcessCommandService" />
     </application>
 </manifest>
