@@ -1,10 +1,12 @@
-package cn.readsense.webviewapp
+package cn.readsense.webviewapp.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import cn.readsense.webviewapp.R
 import cn.readsense.webviewapp.databinding.ActivityMainBinding
 import cn.readsense.webviewbase.autoservice.WebViewServiceLoader
+import cn.readsense.webviewcommon.autoservice.IUserCenterService
 import cn.readsense.webviewcommon.autoservice.IWebViewService
 
 class MainActivity : AppCompatActivity() {

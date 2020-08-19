@@ -37,8 +37,10 @@ dependencies {
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
 
     kapt rootProject.googleAutoServiceDependency
 
     implementation project(path: ':webview')
+    implementation project(path: ':webviewusercenter')
 }

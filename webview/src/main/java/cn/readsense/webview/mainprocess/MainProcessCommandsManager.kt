@@ -1,5 +1,6 @@
 package cn.readsense.webview.mainprocess
 
+import cn.readsense.webview.ICallbackFromMainprocessToWebViewProcessInterface
 import cn.readsense.webview.IWebViewProcessToMainProcessInterface
 import cn.readsense.webview.command.Command
 import com.google.gson.Gson
@@ -28,11 +29,12 @@ class MainProcessCommandsManager private constructor() : IWebViewProcessToMainPr
         }
     }
 
-    private fun executeCommand(commandName: String, params: Map<*, *>) {
-        mCommands[commandName]?.execute(params)
+    private fun executeCommand(commandName: String, params: Map<*, *>, callback: ICallbackFromMainprocessToWebViewProcessInterface) {
+        mCommands[commandName]?.execute(params, callback)
     }
 
-    override fun handleWebCommand(commandName: String, jsonParams: String) {
-        getInstance().executeCommand(commandName, Gson().fromJson<Map<*, *>>(jsonParams, MutableMap::class.java))
+
+    override fun handleWebCommand(commandName: String, jsonParams: String, callback: ICallbackFromMainprocessToWebViewProcessInterface) {
+        executeCommand(commandName, Gson().fromJson<Map<*, *>>(jsonParams, MutableMap::class.java), callback)
     }
 }

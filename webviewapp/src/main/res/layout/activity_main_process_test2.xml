@@ -7,11 +7,11 @@
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
 
-        <Button
+        <TextView
             android:id="@+id/open_webviewactivity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Open WebviewActivity"
+            android:text="activity_main_process_test2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

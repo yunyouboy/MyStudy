@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
+import cn.readsense.webview.ICallbackFromMainprocessToWebViewProcessInterface
 import cn.readsense.webview.IWebViewProcessToMainProcessInterface
 import cn.readsense.webview.mainprocess.MainProcessCommandService
 import cn.readsense.webviewbase.app.BaseApplication
@@ -50,6 +51,10 @@ class WebViewProcessCommandDispatcher : ServiceConnection {
     }
 
     fun executeCommand(commandName: String, params: String, baseWebView: BaseWebView) {
-        iWebViewProcessToMainProcessInterface?.handleWebCommand(commandName, params)
+        iWebViewProcessToMainProcessInterface?.handleWebCommand(commandName, params, object : ICallbackFromMainprocessToWebViewProcessInterface.Stub() {
+            override fun onResult(callbackName: String, response: String) {
+                baseWebView.handleCallback(callbackName, response)
+            }
+        })
     }
 }

@@ -1,6 +1,7 @@
 package cn.readsense.webview.webviewprocess
 
 import android.content.Context
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.webkit.JavascriptInterface
@@ -39,6 +40,16 @@ class BaseWebView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             val jsParamObject: JsParam = Gson().fromJson(jsParam, JsParam::class.java)
             jsParamObject?.run {
                 WebViewProcessCommandDispatcher.getInstance().executeCommand(jsParamObject.name, Gson().toJson(jsParamObject.param), this@BaseWebView)
+            }
+        }
+    }
+
+    fun handleCallback(callbackName: String, response: String) {
+        if (!TextUtils.isEmpty(callbackName) && !TextUtils.isEmpty(response)) {
+            post {
+                val jscode = "javascript:xiangxuejs.callback('$callbackName',$response)"
+                Log.e("xxxxxx", jscode)
+                evaluateJavascript(jscode, null)
             }
         }
     }

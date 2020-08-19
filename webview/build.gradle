@@ -38,12 +38,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
-    //annotationProcessor rootProject.googleAutoServiceDependency
-    api rootProject.googleAutoServiceDependency
+
     kapt rootProject.googleAutoServiceDependency
 
-
-    //kapt "com.android.databinding:compiler:4.0.0"
     kapt 'androidx.databinding:databinding-compiler:4.0.0'
     api project(path: ':webviewcommon')
 }
