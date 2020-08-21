@@ -39,7 +39,7 @@ private fun kmp(p: String, c: String): Int {
 }
 
 
-fun buildNext(child: String): IntArray {
+private fun buildNext(child: String): IntArray {
     //构建next表就是查找真前缀 == 真后缀的最大长度，以获取模式串尽量多地往右移动
     val length = child.length
     val next = IntArray(length)

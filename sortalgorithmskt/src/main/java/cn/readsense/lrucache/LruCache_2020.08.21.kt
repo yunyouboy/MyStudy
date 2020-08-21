@@ -2,11 +2,12 @@ package cn.readsense.lrucache
 
 /**
  *Author:qyg
- *DATE:2020/8/17 10:11
+ *DATE:2020/8/21 11:33
  *Description：
  **/
+
 fun main() {
-    val lru = LruCache20200817<Int, String>(3)
+    val lru = LruCache20200821<Int, String>(3)
 
     lru[1] = "a"// 1:a
     println(lru.toString())
@@ -54,8 +55,8 @@ fun main() {
     println(lru.toString())
 }
 
-private class LruCache20200817<K, V> {
-    private val defaultSize: Int = 16
+private class LruCache20200821<K, V> {
+    private val defaultSize = 16
     private var cacheSize = defaultSize
     private var caches: HashMap<K, Node<K, V>> = HashMap(cacheSize)
     private var head: Node<K, V>? = null
@@ -66,22 +67,23 @@ private class LruCache20200817<K, V> {
         this.caches = HashMap(cacheSize)
     }
 
+    operator fun get(k: K): V? {
+        val node = caches[k] ?: return null
+        move2Head(node)
+        return node.value
+    }
+
     operator fun set(k: K, v: V) {
         var node = caches[k]
         node ?: run {
             if (caches.size >= cacheSize) removeTail()
-            node = Node<K, V>(k)
+            node = Node(k)
         }
         node!!.value = v
         move2Head(node!!)
         caches[k] = node!!
     }
 
-    operator fun get(k: K): V? {
-        val node = caches[k] ?: return null
-        move2Head(node)
-        return node.value
-    }
 
     internal fun move2Head(node: Node<K, V>) {
         when (node) {
@@ -90,7 +92,7 @@ private class LruCache20200817<K, V> {
                 node.pre?.next = node.next
                 node.next?.pre = node.pre
                 if (node === tail) tail = node.pre
-                if (null == tail || null == head) {
+                if (null == tail || null == tail) {
                     head = node
                     tail = head
                     return
@@ -103,6 +105,7 @@ private class LruCache20200817<K, V> {
         }
     }
 
+
     internal fun removeTail() {
         caches.remove(tail?.key)
         tail = tail?.pre
@@ -111,11 +114,11 @@ private class LruCache20200817<K, V> {
 
     internal fun remove(k: K): V? {
         val node = caches[k] ?: return null
+        caches.remove(k)
         node.pre?.next = node.next
         node.next?.pre = node.pre
         if (node === tail) tail = node.pre
         if (node === head) head = node.next
-        caches.remove(k)
         return node.value
     }
 
@@ -127,7 +130,7 @@ private class LruCache20200817<K, V> {
 
     internal fun reverse() {
         var temp: Node<K, V>? = null
-        var cut: Node<K, V>? = head
+        var cut = head
         tail = head
         while (null != cut) {
             temp = cut.pre
@@ -153,8 +156,17 @@ private class LruCache20200817<K, V> {
         }
     }
 
-
     override fun toString(): String {
+        var node = head
+        var sb = StringBuilder()
+        while (null != node) {
+            sb.append("${node.key} ${node.value}, ")
+            node = node.next
+        }
+        return sb.append("\n${caches.size}\n").toString()
+    }
+
+    /*override fun toString(): String {
         var node = head
         var sb = StringBuilder()
         while (null != node) {
@@ -164,15 +176,15 @@ private class LruCache20200817<K, V> {
         }
         sb.append("${caches.size}\n")
         return sb.toString()
-    }
+    }*/
 
-    inner class Node<T, U> {
-        var pre: Node<T, U>? = null
-        var next: Node<T, U>? = null
-        var key: T? = null
-        var value: U? = null
+    inner class Node<U, T> {
+        var key: U? = null
+        var value: T? = null
+        var pre: Node<U, T>? = null
+        var next: Node<U, T>? = null
 
-        constructor(k: T) {
+        constructor(k: U) {
             this.key = k
         }
     }
