@@ -2,6 +2,8 @@ package com.example.customizeview
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
 import com.example.customizeview.slidecardview2.SlideCardActivity
 import com.example.customizeview.toprecycleview.TopRecycleViewActivity
@@ -35,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         tv_to_slide_card_view.setOnClickListener{
             val intent: Intent = Intent(this@MainActivity, SlideCardActivity::class.java)
             startActivity(intent)
+        }
+
+        var handler = Handler{
+            msg: Message ->  {
+            msg.data
+        }
         }
     }
 }
