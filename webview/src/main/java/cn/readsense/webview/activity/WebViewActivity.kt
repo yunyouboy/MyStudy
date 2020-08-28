@@ -1,5 +1,6 @@
 package cn.readsense.webview.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -25,4 +26,5 @@ class WebViewActivity : AppCompatActivity() {
     internal fun updateTitle(title: String) {
         mBinding.title.text = title
     }
+
 }
