@@ -1,4 +1,4 @@
-package cn.readsense.stringmatching
+package cn.readsense.stringmatching.kmp
 
 /**
  *Author:qyg

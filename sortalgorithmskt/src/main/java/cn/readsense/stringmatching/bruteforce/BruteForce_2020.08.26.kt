@@ -1,10 +1,11 @@
-package cn.readsense.stringmatching
+package cn.readsense.stringmatching.bruteforce
 
 /**
  *Author:qyg
- *DATE:2020/8/28 11:45
+ *DATE:2020/8/26 10:06
  *Description：
  **/
+
 fun main() {
     var pString: String = "BBC ABCDAB ABCDABCDABDE"
     var cString: String = "ABCDABD"

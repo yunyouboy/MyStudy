@@ -1,10 +1,11 @@
-package cn.readsense.stringmatching
+package cn.readsense.stringmatching.bruteforce
 
 /**
  *Author:qyg
- *DATE:2020/8/24 16:15
+ *DATE:2020/8/21 10:35
  *Description：
  **/
+
 fun main() {
     var pString: String = "BBC ABCDAB ABCDABCDABDE"
     var cString: String = "ABCDABD"
@@ -19,14 +20,14 @@ fun main() {
     }
 }
 
-private fun bruteForce(parent: String, child: String): Int {
-    var pLength = parent.length
-    var cLength = child.length
+private fun bruteForce(pString: String, cString: String): Int {
+    var pLength = pString.length
+    var cLength = cString.length
     if (cLength > pLength) return -1
     var pIndex = 0
     var cIndex = 0
     while (pIndex < pLength && cIndex < cLength) {
-        if (parent[pIndex] == child[cIndex]) {
+        if (pString[pIndex] == cString[cIndex]) {
             pIndex++
             cIndex++
         } else {
@@ -34,5 +35,5 @@ private fun bruteForce(parent: String, child: String): Int {
             cIndex = 0
         }
     }
-    return if (cIndex == cLength) pIndex - cLength else -1
+    return if (cIndex == cLength) pIndex - cIndex else -1
 }
