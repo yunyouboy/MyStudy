@@ -1,17 +1,17 @@
-package cn.readsense.tree
+package cn.readsense.tree.huffman
 
 /**
  *Author:qyg
- *DATE:2020/9/8 10:32
+ *DATE:2020/9/9 18:42
  *Description：
  **/
 fun main() {
-    HuffmanTree().run {
+    HuffmanTree20200909().run {
         printTree(buildTree(createNodeList()))
     }
 }
 
-class HuffmanTree {
+class HuffmanTree20200909 {
 
     /**
      * 构造测试数据
@@ -55,41 +55,41 @@ class HuffmanTree {
      * 冒泡排序，用于对节点进行排序（增序排序）
      */
     private fun <T> sort(nodes: ArrayList<Node<T>>) {
-        val size = nodes.size
-        if (size <= 1) return
-        for (i in 0 until size) {
-            for (j in 0 until size - i - 1) {
-                if (nodes[j].weight > nodes[j + 1].weight) run {
-                    var tem = nodes[j + 1]
-                    nodes[j + 1] = nodes[j]
-                    nodes[j] = tem
+        for (i in 0 until nodes.size) {
+            for (j in 0 until nodes.size - i - 1) {
+                if (nodes[j].weight > nodes[j + 1].weight) {
+                    var temp = nodes[j]
+                    nodes[j] = nodes[j + 1]
+                    nodes[j + 1] = temp
                 }
             }
         }
     }
 
     /**
-    * 递归打印哈夫曼树(先左子树，后右子树打印)
-    */
+     * 递归打印哈夫曼树(先左子树，后右子树打印)
+     * 中序遍历
+     */
     internal fun <T> printTree(root: Node<T>) {
         println("${root.toString()}")
-        if (root.left != null) {
-            print("left:")
+        root.left?.run {
+            println("left:")
             printTree(root.left!!)
         }
-        if (root.right != null) {
-            print("right:")
+        root.right?.run {
+            println("right:")
             printTree(root.right!!)
         }
     }
 
-    inner class Node<N> {
-        private var data: N? = null//数据
-        var weight = 0//权重
-        var left: Node<N>? = null//左子树
-        var right: Node<N>? = null//右子书
 
-        constructor(data: N?, weight: Int) {
+    inner class Node<T> {
+        var data: T? = null
+        var weight: Int = 0
+        var left: Node<T>? = null
+        var right: Node<T>? = null
+
+        constructor(data: T?, weight: Int) {
             this.data = data
             this.weight = weight
         }

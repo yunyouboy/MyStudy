@@ -1,19 +1,18 @@
-package cn.readsense.tree
+package cn.readsense.tree.huffman
 
 /**
  *Author:qyg
- *DATE:2020/9/10 10:04
+ *DATE:2020/9/14 14:16
  *Description：
  **/
 fun main() {
-    HuffmanTree20200910().run {
-        printTree(buildTree(createNodes()))
+    HuffmanTree20200914().run {
+        printTree(buildTree(createNotes()))
     }
 }
 
-class HuffmanTree20200910 {
-
-    internal fun createNodes(): ArrayList<Node<String>> {
+private class HuffmanTree20200914 {
+    internal fun createNotes(): ArrayList<Node<String>> {
         var nodes = ArrayList<Node<String>>()
         nodes.add(Node("a", 10))
         nodes.add(Node("b", 15))
@@ -26,7 +25,7 @@ class HuffmanTree20200910 {
     }
 
     internal fun <T> buildTree(nodes: ArrayList<Node<T>>): Node<T> {
-        while (nodes.size >= 2) {
+        while (nodes.size > 1) {
             sort(nodes)
             var left = nodes[0]
             var right = nodes[1]
@@ -41,14 +40,14 @@ class HuffmanTree20200910 {
     }
 
     internal fun <T> printTree(root: Node<T>) {
-        println("${root.toString()} ")
+        println("${root.toString()}")
         root.left?.run {
             println("left:")
             printTree(root.left!!)
         }
         root.right?.run {
             println("right:")
-            printTree(root.right!!)
+            printTree(root!!.right!!)
         }
     }
 
@@ -64,19 +63,19 @@ class HuffmanTree20200910 {
         }
     }
 
-    inner class Node<T> {
-        var data: T? = null
+    inner class Node<N> {
+        var data: N? = null
         var weight = 0
-        var left: Node<T>? = null
-        var right: Node<T>? = null
+        var left: Node<N>? = null
+        var right: Node<N>? = null
 
-        constructor(data: T?, weight: Int) {
+        constructor(data: N?, weight: Int) {
             this.data = data
             this.weight = weight
         }
 
         override fun toString(): String {
-            return "Node[weight=${weight},data=${data}]"
+            return "node[data=${data},weight=${weight}]"
         }
     }
 }
