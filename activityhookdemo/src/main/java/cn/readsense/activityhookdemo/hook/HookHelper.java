@@ -19,6 +19,7 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 
 import cn.readsense.activityhookdemo.StubActivity;
+import cn.readsense.activityhookdemo.TargetActivity;
 
 public class HookHelper {
     private static final String TAG = "Zero";
@@ -66,6 +67,11 @@ public class HookHelper {
                                     }
                                 }
                                 Log.i(TAG, "invoke: raw: " + raw);
+                                if (raw.getClass().getName().contains("StubActivity")){
+                                    Intent newIntent = new Intent();
+                                    newIntent.setComponent(new ComponentName("cn.readsense.activityhookdemo", TargetActivity.class.getName()));
+                                    raw = newIntent;
+                                }
                                 //代替的Intent
                                 Intent newIntent = new Intent();
                                 newIntent.setComponent(new ComponentName("cn.readsense.activityhookdemo", StubActivity.class.getName()));
@@ -213,6 +219,7 @@ public class HookHelper {
                                 if (mActivityCallbacks.size() > 0) {
                                     Log.i(TAG, "handleMessage: size= " + mActivityCallbacks.size());
                                     String className = "android.app.servertransaction.LaunchActivityItem";
+                                    Log.i(TAG,"mActivityCallbacks.get(0).getClass().getCanonicalName() = " +mActivityCallbacks.get(0).getClass().getCanonicalName());
                                     if (mActivityCallbacks.get(0).getClass().getCanonicalName().equals(className)) {
                                         Object object = mActivityCallbacks.get(0);
                                         Field intentField = object.getClass().getDeclaredField("mIntent");
