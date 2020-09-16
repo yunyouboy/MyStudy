@@ -1,3 +1,4 @@
+include ':activityhookdemo'
 include ':webviewusercenter'
 include ':webviewbase'
 include ':webviewcommon'
