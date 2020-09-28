@@ -26,16 +26,16 @@ public class HookHelper {
 
     public static final String EXTRA_TARGET_INTENT = "extra_target_intent";
 
-    public static void hookAMSAidl(){
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.P){
+    public static void hookAMSAidl() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
             hookIActivityTaskManager();
-        }else{
+        } else {
             hookIActivityManager();
         }
     }
 
-    public static void hookIActivityTaskManager(){
-        try{
+    public static void hookIActivityTaskManager() {
+        try {
             Field singletonField = null;
             Class<?> actvityManager = Class.forName("android.app.ActivityTaskManager");
             singletonField = actvityManager.getDeclaredField("IActivityTaskManagerSingleton");
@@ -53,7 +53,7 @@ public class HookHelper {
                     , new InvocationHandler() {
                         @Override
                         public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-							//Log.i(TAG, "invoke: " + method.getName());
+                            //Log.i(TAG, "invoke: " + method.getName());
                             //偷梁换柱
                             //真正要启动的activity目标
                             Intent raw = null;
@@ -61,13 +61,13 @@ public class HookHelper {
                             if ("startActivity".equals(method.getName())) {
                                 Log.i(TAG, "invoke: startActivity 启动准备");
                                 for (int i = 0; i < args.length; i++) {
-                                    if(args[i] instanceof  Intent){
-                                        raw = (Intent)args[i];
+                                    if (args[i] instanceof Intent) {
+                                        raw = (Intent) args[i];
                                         index = i;
                                     }
                                 }
                                 Log.i(TAG, "invoke: raw: " + raw);
-                                if (raw.getClass().getName().contains("StubActivity")){
+                                if (raw.getClass().getName().contains("StubActivity")) {
                                     Intent newIntent = new Intent();
                                     newIntent.setComponent(new ComponentName("cn.readsense.activityhookdemo", TargetActivity.class.getName()));
                                     raw = newIntent;
@@ -75,7 +75,7 @@ public class HookHelper {
                                 //代替的Intent
                                 Intent newIntent = new Intent();
                                 newIntent.setComponent(new ComponentName("cn.readsense.activityhookdemo", StubActivity.class.getName()));
-                                newIntent.putExtra(EXTRA_TARGET_INTENT,raw);
+                                newIntent.putExtra(EXTRA_TARGET_INTENT, raw);
                                 args[index] = newIntent;
                             }
                             return method.invoke(IActivityTaskManager, args);
@@ -84,14 +84,14 @@ public class HookHelper {
             //7. IActivityManagerProxy 融入到framework
             mInstanceField.set(singleton, proxy);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void hookIActivityManager() {
 
-        try{
+        try {
             Field singletonField = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Class<?> actvityManager = Class.forName("android.app.ActivityManager");
@@ -114,38 +114,34 @@ public class HookHelper {
                     , new InvocationHandler() {
                         @Override
                         public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-//                            Log.i(TAG, "invoke: " + method.getName());
-
-                            //偷梁换柱
-                            //真正要启动的activity目标
-                            Intent raw = null;
-                            int index = -1;
+                            //Log.i(TAG, "invoke: " + method.getName());
                             if ("startActivity".equals(method.getName())) {
+                                //偷梁换柱
+                                //真正要启动的activity目标
+                                Intent raw = null;
+                                int index = 0;
                                 Log.i(TAG, "invoke: startActivity 启动准备");
                                 for (int i = 0; i < args.length; i++) {
-                                    if(args[i] instanceof  Intent){
-                                        raw = (Intent)args[i];
+                                    if (args[i] instanceof Intent) {
                                         index = i;
                                     }
                                 }
+                                raw = (Intent) args[index];
                                 Log.i(TAG, "invoke: raw: " + raw);
                                 //代替的Intent
-                                Intent newIntent = new Intent();
-                                newIntent.setComponent(new ComponentName("com.zero.activityhookdemo", StubActivity.class.getName()));
-                                newIntent.putExtra(EXTRA_TARGET_INTENT,raw);
-
-                                args[index] = newIntent;
-
+                                Intent subIntent = new Intent();
+                                subIntent.setComponent(new ComponentName("cn.readsense.activityhookdemo", StubActivity.class.getName()));
+                                subIntent.putExtra(EXTRA_TARGET_INTENT, raw);
+                                args[index] = subIntent;
                             }
-
                             return method.invoke(rawIActivityManager, args);
                         }
                     });
 
-            //            7. IActivityManagerProxy 融入到framework
+            //7. IActivityManagerProxy 融入到framework
             mInstanceField.set(singleton, proxy);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -173,7 +169,17 @@ public class HookHelper {
                     Log.i(TAG, "handleMessage: " + msg.what);
                     switch (msg.what) {
                         case 100: {
-
+                            try {
+                                Object obj = msg.obj;
+                                Log.i(TAG, "handleMessage: obj=" + obj);
+                                Field intentField = obj.getClass().getDeclaredField("intent");
+                                intentField.setAccessible(true);
+                                Intent intent = (Intent) intentField.get(obj);
+                                Intent targetIntent = intent.getParcelableExtra(EXTRA_TARGET_INTENT);
+                                intent.setComponent(targetIntent.getComponent());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                         break;
                         case 159: {
@@ -219,7 +225,7 @@ public class HookHelper {
                                 if (mActivityCallbacks.size() > 0) {
                                     Log.i(TAG, "handleMessage: size= " + mActivityCallbacks.size());
                                     String className = "android.app.servertransaction.LaunchActivityItem";
-                                    Log.i(TAG,"mActivityCallbacks.get(0).getClass().getCanonicalName() = " +mActivityCallbacks.get(0).getClass().getCanonicalName());
+                                    Log.i(TAG, "mActivityCallbacks.get(0).getClass().getCanonicalName() = " + mActivityCallbacks.get(0).getClass().getCanonicalName());
                                     if (mActivityCallbacks.get(0).getClass().getCanonicalName().equals(className)) {
                                         Object object = mActivityCallbacks.get(0);
                                         Field intentField = object.getClass().getDeclaredField("mIntent");
@@ -247,37 +253,24 @@ public class HookHelper {
         }
     }
 
-
-
-
-    public static void hookInstrumentation(Activity activity) {
-        //TODO:
-        Class<?> activityClass = Activity.class;
-        //通过Activity.class 拿到 mInstrumentation字段
-        Field field = null;
-        try {
-            field = activityClass.getDeclaredField("mInstrumentation");
-            field.setAccessible(true);
-            //根据activity内mInstrumentation字段 获取Instrumentation对象
-            Instrumentation instrumentation = (Instrumentation) field.get(activity);
-            //创建代理对象,注意了因为Instrumentation是类，不是接口 所以我们只能用静态代理，
-            Instrumentation instrumentationProxy = new ProxyInstrumentation(instrumentation);
-            //进行替换
-            field.set(activity, instrumentationProxy);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public static void hookInstrumentation(Context context) throws Exception {
+        Class<?> contextImplClass = Class.forName("android.app.ContextImpl");
+        Field mMainThreadField = contextImplClass.getDeclaredField("mMainThread");
+        Object activityThread = mMainThreadField.get(context);
+        Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+        Field mInstrumentationField = activityThreadClass.getDeclaredField("mInstrumentation");
+        Object mInstrumentation = mInstrumentationField.get(activityThread);
+        mInstrumentationField.set(activityThread, new ProxyInstrumentation((Instrumentation) mInstrumentation));
     }
 
     static class ProxyInstrumentation extends Instrumentation {
 
         private static final String TAG = "Zero";
         // ActivityThread中原始的对象, 保存起来
-        Instrumentation mBase;
+        Instrumentation mInstrumentation;
 
-        public ProxyInstrumentation(Instrumentation base) {
-            mBase = base;
+        public ProxyInstrumentation(Instrumentation instrumentation) {
+            mInstrumentation = instrumentation;
         }
 
         public ActivityResult execStartActivity(
@@ -297,7 +290,7 @@ public class HookHelper {
                         Context.class, IBinder.class, IBinder.class, Activity.class,
                         Intent.class, int.class, Bundle.class);
                 execStartActivity.setAccessible(true);
-                return (ActivityResult) execStartActivity.invoke(mBase, who,
+                return (ActivityResult) execStartActivity.invoke(mInstrumentation, who,
                         contextThread, token, target, intent, requestCode, options);
             } catch (Exception e) {
                 throw new RuntimeException("do not support!!! pls adapt it");
@@ -322,8 +315,28 @@ public class HookHelper {
                 throws InstantiationException, IllegalAccessException,
                 ClassNotFoundException {
 
-            return mBase.newActivity(cl, className, intent);
+            return mInstrumentation.newActivity(cl, className, intent);
         }
+    }
+
+    public static void hookInstrumentation(Activity activity) {
+        //TODO:
+        Class<?> activityClass = Activity.class;
+        //通过Activity.class 拿到 mInstrumentation字段
+        Field field = null;
+        try {
+            field = activityClass.getDeclaredField("mInstrumentation");
+            field.setAccessible(true);
+            //根据activity内mInstrumentation字段 获取Instrumentation对象
+            Instrumentation instrumentation = (Instrumentation) field.get(activity);
+            //创建代理对象,注意了因为Instrumentation是类，不是接口 所以我们只能用静态代理，
+            Instrumentation instrumentationProxy = new ProxyInstrumentation(instrumentation);
+            //进行替换
+            field.set(activity, instrumentationProxy);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void hookActivityThreadInstrumentation() {
@@ -348,5 +361,4 @@ public class HookHelper {
             e.printStackTrace();
         }
     }
-
 }

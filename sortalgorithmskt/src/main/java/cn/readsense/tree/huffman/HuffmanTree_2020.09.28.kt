@@ -2,18 +2,18 @@ package cn.readsense.tree.huffman
 
 /**
  *Author:qyg
- *DATE:2020/9/16 14:26
+ *DATE:2020/9/28 14:12
  *Description：
  **/
 fun main() {
-    HuffmanTree20200916().run {
+    HuffmanTree20200928().run {
         buildTree(createNodes())?.run {
             printTree(this)
         }
     }
 }
 
-class HuffmanTree20200916 {
+class HuffmanTree20200928 {
 
     internal fun createNodes(): ArrayList<TreeNode<String>> {
         var nodes = ArrayList<TreeNode<String>>()
@@ -27,13 +27,13 @@ class HuffmanTree20200916 {
         return nodes
     }
 
-    internal fun <T> buildTree(nodes: ArrayList<TreeNode<T>>): TreeNode<T>? {
-        if (nodes?.isEmpty()) return null
+    internal fun buildTree(nodes: ArrayList<TreeNode<String>>): TreeNode<String>? {
+        if (nodes.isEmpty()) return null
         while (nodes.size > 1) {
             sort(nodes)
             var left = nodes[0]
             var right = nodes[1]
-            var parent = TreeNode<T>(null, left.weight + right.weight)
+            var parent = TreeNode<String>(null, left.weight + right.weight)
             parent.left = left
             parent.right = right
             nodes.remove(left)
@@ -43,19 +43,7 @@ class HuffmanTree20200916 {
         return nodes[0]
     }
 
-    internal fun <T> printTree(root: TreeNode<T>) {
-        println(root.toString())
-        root.left?.runCatching {
-            println("left")
-            printTree(root.left!!)
-        }
-        root.right?.runCatching {
-            println("right:")
-            printTree(root.right!!)
-        }
-    }
-
-    private fun <T> sort(nodes: ArrayList<TreeNode<T>>) {
+    private fun sort(nodes: ArrayList<TreeNode<String>>) {
         if (nodes.size > 1) {
             for (i in 0 until nodes.size) {
                 for (j in 0 until nodes.size - i - 1) {
@@ -69,19 +57,34 @@ class HuffmanTree20200916 {
         }
     }
 
-    inner class TreeNode<T> {
-        var data: T? = null
-        var weight = 0
-        var left: TreeNode<T>? = null
-        var right: TreeNode<T>? = null
+    internal fun printTree(root: TreeNode<String>) {
+        println(root.toString())
+        root.left?.run {
+            println("left: ");
+            printTree(root.left!!)
+        }
+        root.right?.run {
+            println("right: ")
+            printTree(root.right!!)
+        }
 
-        constructor(data: T?, weight: Int) {
-            this.data
+    }
+
+    inner class TreeNode<K> {
+        var data: K? = null
+        var weight: Int = 0
+        var left: TreeNode<K>? = null
+        var right: TreeNode<K>? = null
+
+        constructor(data: K?, weight: Int) {
+            this.data = data
             this.weight = weight
         }
 
         override fun toString(): String {
-            return "TreeNode[data=${data},weight=${weight}]"
+            var sb = StringBuilder()
+            sb.append("TreeNode[data=$data,weight=$weight]")
+            return sb.toString()
         }
     }
 }

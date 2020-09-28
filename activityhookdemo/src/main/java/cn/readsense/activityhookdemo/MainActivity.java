@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_hook3)
     public void onBtnHook3Clicked() {
-
+        HookHelper.hookInstrumentation(this);
         Intent intent = new Intent(this, TargetActivity.class);
         startActivity(intent);
     }
